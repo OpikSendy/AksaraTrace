@@ -1,0 +1,24 @@
+{
+  "aksara": [
+    { "id": 1,  "latin": "ha",  "unicode": "ꦲ", "unicode_code": "U+A9B2", "gatra": 1, "gatra_makna": "Ana utusan (Ada utusan yang datang)", "bunyi": "ha",  "filosofi": "Simbol nafas kehidupan, awal dari segala sesuatu yang ada di alam semesta." },
+    { "id": 2,  "latin": "na",  "unicode": "ꦤ", "unicode_code": "U+A9A4", "gatra": 1, "gatra_makna": "Ana utusan (Ada utusan yang datang)", "bunyi": "na",  "filosofi": "Melambangkan keberanian dan keteguhan dalam menjalankan tugas mulia." },
+    { "id": 3,  "latin": "ca",  "unicode": "ꦕ", "unicode_code": "U+A995", "gatra": 1, "gatra_makna": "Ana utusan (Ada utusan yang datang)", "bunyi": "ca",  "filosofi": "Simbol kecerdasan dan kemampuan berpikir yang tajam dan jernih." },
+    { "id": 4,  "latin": "ra",  "unicode": "ꦫ", "unicode_code": "U+A9AB", "gatra": 1, "gatra_makna": "Ana utusan (Ada utusan yang datang)", "bunyi": "ra",  "filosofi": "Melambangkan rasa dan kepekaan terhadap lingkungan sekitar." },
+    { "id": 5,  "latin": "ka",  "unicode": "ꦏ", "unicode_code": "U+A98F", "gatra": 1, "gatra_makna": "Ana utusan (Ada utusan yang datang)", "bunyi": "ka",  "filosofi": "Simbol kekuatan dan kehendak yang teguh dalam bertindak." },
+    { "id": 6,  "latin": "da",  "unicode": "ꦢ", "unicode_code": "U+A9A2", "gatra": 2, "gatra_makna": "Padha wira-wiri (Saling berselisih paham)", "bunyi": "da",  "filosofi": "Melambangkan pertentangan dua kekuatan yang seimbang di dunia." },
+    { "id": 7,  "latin": "ta",  "unicode": "ꦠ", "unicode_code": "U+A9A0", "gatra": 2, "gatra_makna": "Padha wira-wiri (Saling berselisih paham)", "bunyi": "ta",  "filosofi": "Simbol ketegasan dan keputusan yang tidak bisa diganggu gugat." },
+    { "id": 8,  "latin": "sa",  "unicode": "ꦱ", "unicode_code": "U+A9B1", "gatra": 2, "gatra_makna": "Padha wira-wiri (Saling berselisih paham)", "bunyi": "sa",  "filosofi": "Melambangkan kesucian dan kemurnian jiwa yang selalu dijaga." },
+    { "id": 9,  "latin": "wa",  "unicode": "ꦮ", "unicode_code": "U+A9AE", "gatra": 2, "gatra_makna": "Padha wira-wiri (Saling berselisih paham)", "bunyi": "wa",  "filosofi": "Simbol kesetiaan dan pengabdian tanpa pamrih kepada sesama." },
+    { "id": 10, "latin": "la",  "unicode": "ꦭ", "unicode_code": "U+A9AD", "gatra": 2, "gatra_makna": "Padha wira-wiri (Saling berselisih paham)", "bunyi": "la",  "filosofi": "Melambangkan kelembutan dan keluwesan dalam menghadapi rintangan." },
+    { "id": 11, "latin": "pa",  "unicode": "ꦥ", "unicode_code": "U+A9A5", "gatra": 3, "gatra_makna": "Padha sakti mandraguna (Sama-sama sakti)", "bunyi": "pa",  "filosofi": "Simbol kesamaan derajat dan kesetaraan antara semua makhluk hidup." },
+    { "id": 12, "latin": "dha", "unicode": "ꦝ", "unicode_code": "U+A99D", "gatra": 3, "gatra_makna": "Padha sakti mandraguna (Sama-sama sakti)", "bunyi": "dha", "filosofi": "Melambangkan kearifan dan kebijaksanaan lokal yang turun-temurun." },
+    { "id": 13, "latin": "ja",  "unicode": "ꦗ", "unicode_code": "U+A997", "gatra": 3, "gatra_makna": "Padha sakti mandraguna (Sama-sama sakti)", "bunyi": "ja",  "filosofi": "Simbol kejayaan dan kemuliaan yang diraih dengan kerja keras." },
+    { "id": 14, "latin": "ya",  "unicode": "ꦪ", "unicode_code": "U+A9AA", "gatra": 3, "gatra_makna": "Padha sakti mandraguna (Sama-sama sakti)", "bunyi": "ya",  "filosofi": "Melambangkan keyakinan dan kepercayaan diri dalam setiap langkah." },
+    { "id": 15, "latin": "nya", "unicode": "ꦚ", "unicode_code": "U+A99A", "gatra": 3, "gatra_makna": "Padha sakti mandraguna (Sama-sama sakti)", "bunyi": "nya", "filosofi": "Simbol kenyataan dan kebenaran yang harus selalu dijunjung tinggi." },
+    { "id": 16, "latin": "ma",  "unicode": "ꦩ", "unicode_code": "U+A9A9", "gatra": 4, "gatra_makna": "Mati ing palagan (Keduanya gugur di medan laga)", "bunyi": "ma",  "filosofi": "Melambangkan kematian sebagai akhir siklus dan awal kehidupan baru." },
+    { "id": 17, "latin": "ga",  "unicode": "ꦒ", "unicode_code": "U+A992", "gatra": 4, "gatra_makna": "Mati ing palagan (Keduanya gugur di medan laga)", "bunyi": "ga",  "filosofi": "Simbol perjalanan dan petualangan jiwa menuju kesempurnaan." },
+    { "id": 18, "latin": "ba",  "unicode": "ꦧ", "unicode_code": "U+A9A7", "gatra": 4, "gatra_makna": "Mati ing palagan (Keduanya gugur di medan laga)", "bunyi": "ba",  "filosofi": "Melambangkan benih dan asal-usul segala kehidupan yang ada." },
+    { "id": 19, "latin": "tha", "unicode": "ꦛ", "unicode_code": "U+A99B", "gatra": 4, "gatra_makna": "Mati ing palagan (Keduanya gugur di medan laga)", "bunyi": "tha", "filosofi": "Simbol pengorbanan luhur demi nilai yang lebih tinggi dari diri sendiri." },
+    { "id": 20, "latin": "nga", "unicode": "ꦔ", "unicode_code": "U+A994", "gatra": 4, "gatra_makna": "Mati ing palagan (Keduanya gugur di medan laga)", "bunyi": "nga", "filosofi": "Melambangkan kehancuran yang membuka ruang bagi kelahiran kembali." }
+  ]
+}
