@@ -4,87 +4,1088 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AksaraTrace - Platform edukasi web interaktif untuk belajar dan melestarikan Aksara Jawa Hanacaraka secara gamifikasi.">
+    <meta name="theme-color" content="#8B2E0F">
     <title>AksaraTrace - Lestarikan Aksara Jawa</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
+    <link rel="preload" as="image" href="assets/images/AksaraTrace_rmbg.png">
+
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+Javanese:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap">
+    <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+Javanese:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Noto+Serif+Javanese:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap">
+    </noscript>
+    <link rel="icon" type="image/png" href="assets/images/AksaraTrace_rmbg.png" />
+    <style>
+        :root {
+            --color-bg: #F5F0E8;
+            --color-surface: #EDE8DC;
+            --color-accent: #8B2E0F;
+            --color-accent-light: #C4622D;
+            --color-text-primary: #1A1510;
+            --color-text-secondary: #5C4A32;
+            --color-stroke: #1A1510;
+            --color-guide: rgba(139, 46, 15, 0.12);
+            --color-success: #2e7d32;
+            --color-warning: #f57f17;
+            --color-locked: #b0a89d;
 
-    <link rel="icon" type="image/png" href="assets/images/AksaraTrace.png" />
+            --font-display: 'Playfair Display', serif;
+            --font-body: Georgia, 'Times New Roman', serif;
+            --font-javanese: 'Noto Serif Javanese', serif;
 
-    <link rel="stylesheet" href="style.css">
+            --border-thick: 3px solid var(--color-text-primary);
+            --shadow-solid: 6px 6px 0px var(--color-text-primary);
+            --shadow-solid-hover: 2px 2px 0px var(--color-text-primary);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Navigation SPA */
+        .neo-nav {
+            background-color: var(--color-surface);
+            border-bottom: var(--border-thick);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            max-width: 180px;
+            height: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background-color: var(--color-bg);
+            border: var(--border-thick);
+            padding: 8px 16px;
+            font-family: var(--font-display);
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: var(--shadow-solid);
+            transition: all 0.1s ease;
+            border-radius: 4px;
+            color: var(--color-text-primary);
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            transform: translate(4px, 4px);
+            box-shadow: var(--shadow-solid-hover);
+            background-color: var(--color-accent);
+            color: #fff;
+        }
+
+        /* Gamification Stats Header */
+        .stats-header {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px;
+            background-color: #fff;
+            margin-bottom: -20px;
+            border-radius: 4px;
+            font-family: var(--font-display);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Popups & Animations */
+        @keyframes xpGain {
+            0% {
+                transform: scale(1);
+                color: var(--color-text-primary);
+            }
+
+            50% {
+                transform: scale(1.5);
+                color: var(--color-success);
+            }
+
+            100% {
+                transform: scale(1);
+                color: var(--color-text-primary);
+            }
+        }
+
+        .xp-anim {
+            animation: xpGain 0.5s ease;
+        }
+
+        @keyframes heartLoss {
+            0% {
+                transform: scale(1) translateX(0);
+            }
+
+            25% {
+                transform: scale(1.2) translateX(-5px);
+                color: var(--color-accent);
+            }
+
+            75% {
+                transform: scale(1.2) translateX(5px);
+                color: var(--color-accent);
+            }
+
+            100% {
+                transform: scale(1) translateX(0);
+            }
+        }
+
+        .heart-anim {
+            animation: heartLoss 0.5s ease;
+        }
+
+        /* Page Sections */
+        .main-content {
+            padding: 40px 20px;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Neo Brutalism Cards */
+        .neo-card {
+            background-color: var(--color-surface);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-solid);
+            padding: 24px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            border: var(--border-thick);
+            padding: 10px 20px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: var(--shadow-solid);
+            transition: all 0.1s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:active:not(:disabled) {
+            transform: translate(4px, 4px);
+            box-shadow: var(--shadow-solid-hover);
+        }
+
+        .btn:disabled {
+            background-color: var(--color-locked);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+            opacity: 0.7;
+        }
+
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: #fff;
+        }
+
+        .btn-warning {
+            background-color: var(--color-warning);
+            color: #fff;
+        }
+
+        .btn-large {
+            font-size: 1.2rem;
+            padding: 15px 30px;
+        }
+
+        /* Hero Section */
+        .hero-card {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #fff;
+        }
+
+        .hero-card h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-card p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .info-card h3 {
+            margin-bottom: 15px;
+            border-bottom: 2px dashed var(--color-text-primary);
+            padding-bottom: 10px;
+        }
+
+        .info-card p {
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .benefit-list {
+            list-style-type: none;
+        }
+
+        .benefit-list li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .benefit-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='cg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232ECC71' /%3E%3Cstop offset='100%25' stop-color='%2327AE60' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='12' cy='12' r='10' fill='url(%23cg)' stroke='%231A1510' stroke-width='2.5'/%3E%3Cpath d='M16 9l-5.5 5.5L8 12' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* Edukasi / Journey Map */
+        .aksara-journey-map {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .gatra-section {
+            width: 100%;
+            background: #fff;
+            border: var(--border-thick);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: var(--shadow-solid);
+        }
+
+        .gatra-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--color-text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .gatra-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+
+        .gatra-status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 2px solid var(--color-text-primary);
+            background: var(--color-surface);
+        }
+
+        .aksara-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .aksara-card {
+            background-color: var(--color-bg);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-solid);
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .aksara-card:hover:not(.locked) {
+            transform: translate(4px, 4px);
+            box-shadow: var(--shadow-solid-hover);
+        }
+
+        .aksara-card.locked {
+            background-color: #d8d4cd;
+            color: var(--color-locked);
+            cursor: not-allowed;
+            box-shadow: 2px 2px 0px var(--color-locked);
+            border-color: var(--color-locked);
+        }
+
+        .aksara-card.locked .aksara-unicode {
+            color: var(--color-locked);
+        }
+
+        .aksara-card.locked .aksara-filosofi {
+            border-top-color: var(--color-locked);
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            opacity: 0.2;
+        }
+
+        .aksara-unicode {
+            font-family: var(--font-javanese);
+            font-size: 4rem;
+            color: var(--color-accent);
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .aksara-latin {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .aksara-filosofi {
+            font-size: 0.85rem;
+            margin-top: auto;
+            border-top: 2px dashed var(--color-text-primary);
+            padding-top: 10px;
+        }
+
+        /* Canvas Tracing */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #fff;
+        }
+
+        .brush-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            background: var(--color-text-primary);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            border: 2px solid var(--color-text-primary);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--color-accent);
+            border: 3px solid var(--color-text-primary);
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--color-text-primary);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            box-shadow: 0px 0px 0px var(--color-text-primary);
+            transform: translate(2px, 2px);
+        }
+
+        .canvas-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .canvas-container {
+            background-color: #FFF;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto 24px;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            cursor: crosshair;
+        }
+
+        .accuracy-result {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-text-primary);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .accuracy-success {
+            border-color: var(--color-success);
+            color: var(--color-success);
+        }
+
+        .accuracy-fail {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .current-aksara-info {
+            text-align: center;
+            font-size: 1.2rem;
+            background-color: #fff;
+        }
+
+        /* Transliterasi & Inputs */
+        .transliterasi-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #fff;
+        }
+
+        .neo-input {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--color-surface);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-solid);
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            color: var(--color-text-primary);
+            border-radius: 4px;
+        }
+
+        .neo-input:focus {
+            outline: none;
+            background-color: #fff;
+            box-shadow: var(--shadow-solid-hover);
+            transform: translate(4px, 4px);
+        }
+
+        textarea.neo-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .aksara-output {
+            min-height: 150px;
+            background-color: #fff;
+            font-family: var(--font-javanese);
+            font-size: 3rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .aksara-output:empty::before {
+            content: attr(placeholder);
+            color: #666;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        /* Kuis Section */
+        .kuis-question {
+            font-family: var(--font-javanese);
+            font-size: 6rem;
+            color: var(--color-accent);
+            margin-bottom: 30px;
+            background: #fff;
+            border: var(--border-thick);
+            padding: 40px;
+            display: inline-block;
+            box-shadow: var(--shadow-solid);
+        }
+
+        .kuis-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .kuis-option-btn {
+            padding: 15px;
+            font-size: 1.2rem;
+        }
+
+        .kuis-feedback {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px;
+            border: var(--border-thick);
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        /* Custom Neo Modal */
+        .neo-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+
+        .neo-modal {
+            max-width: 90%;
+            width: 400px;
+            background-color: #fff;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 0;
+        }
+
+        .neo-modal-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            border-bottom: 2px dashed var(--color-text-primary);
+            padding-bottom: 10px;
+        }
+
+        .neo-modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (min-width: 480px) {
+            .aksara-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .kuis-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .aksara-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .home-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .aksara-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .transliterasi-container {
+                flex-direction: row;
+            }
+
+            .input-group,
+            .output-group {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <header class="app-header">
-        <div class="container">
-            <img src="assets/images/AksaraTrace_rmbg.png" alt="AksaraTrace Logo" class="app-logo">
-            <p>Platform Edukasi & Pelestarian Aksara Jawa Hanacaraka</p>
+    <nav class="neo-nav">
+        <div class="container nav-container">
+            <img src="assets/images/AksaraTrace_rmbg.png" alt="AksaraTrace Logo" class="nav-logo" width="180"
+                height="98">
+            <div class="nav-links">
+                <button class="nav-btn active" data-target="home">Beranda</button>
+                <button class="nav-btn" data-target="edukasi">Edukasi</button>
+                <button class="nav-btn" data-target="tracing">Latihan</button>
+                <button class="nav-btn" data-target="transliterasi">Transliterasi</button>
+                <button class="nav-btn" data-target="kuis">Kuis</button>
+                <button class="nav-btn" data-target="kamus">Kamus</button>
+                <button class="nav-btn" data-target="budaya">Budaya</button>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container">
-        <!-- Modul 1: Edukasi -->
-        <section id="section-edukasi" class="module-section">
-            <header class="section-header">
-                <h2>Mengenal Hanacaraka</h2>
-                <p>20 aksara dasar yang sarat akan makna filosofis kehidupan.</p>
-            </header>
-            <div id="aksara-grid" class="aksara-grid">
-                <!-- Kartu aksara akan di-generate via JavaScript -->
+    <div class="container mt-20">
+        <div class="stats-header neo-card">
+            <div class="stat-item" title="Streak Harian">
+                <span class="stat-icon svg-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="flameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#FFD700" />
+                                <stop offset="50%" stop-color="#FF8C00" />
+                                <stop offset="100%" stop-color="#FF4500" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"
+                            fill="url(#flameGrad)" stroke="var(--color-text-primary)" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 14.5c-1 0-1.5-.5-1.5-1.5s.5-1.5 1-2c.5 1 .5 1.5.5 1.5s0 .5-.5.5" fill="#fff"
+                            opacity="0.6" />
+                    </svg>
+                </span>
+                <span id="stat-streak">0</span>
+            </div>
+            <div class="stat-item" title="Experience Points">
+                <span class="stat-icon svg-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00FFFF" />
+                                <stop offset="100%" stop-color="#0055FF" />
+                            </linearGradient>
+                        </defs>
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                            fill="url(#diamondGrad)" stroke="var(--color-text-primary)" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <polygon points="12 5 14 9 19 9.5 15.5 13 16 18 12 16" fill="#fff" opacity="0.4" />
+                    </svg>
+                </span>
+                <span id="stat-xp">0</span>
+            </div>
+            <div class="stat-item" title="Nyawa">
+                <span class="stat-icon svg-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="heartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#FF6B6B" />
+                                <stop offset="100%" stop-color="#C0392B" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                            fill="url(#heartGrad)" stroke="var(--color-text-primary)" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M6 7.5A2.5 2.5 0 0 1 8.5 5" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                            opacity="0.6" fill="none" />
+                    </svg>
+                </span>
+                <span id="stat-hearts">5</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="container main-content">
+        <!-- Beranda -->
+        <section id="section-home" class="page-section active">
+            <div class="hero-card neo-card">
+                <h2>Selamat Datang di AksaraTrace</h2>
+                <p>Platform edukasi web interaktif untuk belajar dan melestarikan Aksara Jawa Hanacaraka secara
+                    gamifikasi dan menyenangkan.</p>
+                <button class="btn btn-primary btn-large cta-btn mt-20" data-target="edukasi">Mulai Belajar
+                    Sekarang</button>
+            </div>
+
+            <div class="home-grid">
+                <div class="info-card neo-card">
+                    <h3 style="display:flex; align-items:center; gap:10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                            <defs>
+                                <linearGradient id="scrollGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#FDEBD0" />
+                                    <stop offset="100%" stop-color="#E59866" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+                                fill="url(#scrollGrad)" stroke="#1A1510" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M8 7h8M8 11h8" stroke="#1A1510" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        Sejarah Ajisaka
+                    </h3>
+                    <p>Legenda menceritakan bahwa Aksara Jawa diciptakan oleh <strong>Aji Saka</strong> untuk mengenang
+                        dua abdi setianya yang amat sakti: <strong>Dora</strong> dan <strong>Sembada</strong>. Keduanya
+                        berselisih paham demi memegang teguh amanah dari sang raja hingga akhirnya sama-sama gugur di
+                        medan laga. Kisah pengabdian buta dan penuh kehormatan inilah yang diabadikan dalam 20 aksara
+                        yang berbunyi <em>"Ha-Na-Ca-Ra-Ka"</em>.</p>
+                </div>
+
+                <div class="info-card neo-card">
+                    <h3 style="display:flex; align-items:center; gap:10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                            <defs>
+                                <linearGradient id="lampGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#F1C40F" />
+                                    <stop offset="100%" stop-color="#F39C12" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M9 18h6M10 22h4" stroke="#1A1510" stroke-width="2" stroke-linecap="round" />
+                            <path
+                                d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 12 3a4.65 4.65 0 0 0-4.5 8.5c.76.76 1.23 1.52 1.41 2.5z"
+                                fill="url(#lampGrad)" stroke="#1A1510" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        Kenapa Harus AksaraTrace?
+                    </h3>
+                    <ul class="benefit-list">
+                        <li><strong>Belajar Jadi Game:</strong> Kumpulkan XP, buka level Gatra yang terkunci, dan jaga
+                            nyawa (Hearts) kamu!</li>
+                        <li><strong>Otot Memori (Tracing):</strong> Kami menggunakan HTML5 Canvas agar Anda merasakan
+                            langsung bentuk goresan aslinya, bukan sekadar melihat gambar.</li>
+                        <li><strong>Akurasi AI-like:</strong> Sistem dapat mengecek seberapa akurat coretan Anda berpadu
+                            dengan panduan secara <em>real-time</em>!</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <div class="split-layout">
-            <!-- Modul 2: Tracing Canvas -->
-            <section id="section-tracing" class="module-section">
-                <header class="section-header">
-                    <h2>Latihan Menulis</h2>
-                    <p>Pilih aksara di atas dan ikuti panduan garisnya.</p>
-                </header>
-                <div class="canvas-container">
-                    <canvas id="tracing-canvas"></canvas>
+        <!-- Edukasi / Peta Perjalanan -->
+        <section id="section-edukasi" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Peta Perjalanan</h2>
+                <p>Kumpulkan XP untuk membuka Gatra (Baris) selanjutnya!</p>
+            </header>
+            <div id="aksara-grid" class="aksara-journey-map"></div>
+        </section>
+
+        <!-- Tracing Canvas -->
+        <section id="section-tracing" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Latihan Menulis</h2>
+                <p>Ikuti panduan garisnya untuk melatih goresan Anda.</p>
+            </header>
+
+            <div class="neo-card control-panel">
+                <div class="brush-control">
+                    <label for="brush-size">Ketebalan:</label>
+                    <input type="range" id="brush-size" min="2" max="20" value="5">
                 </div>
                 <div class="canvas-controls">
                     <button id="btn-clear" class="btn">Bersihkan</button>
-                    <button id="btn-toggle-guide" class="btn">Sembunyikan Panduan</button>
+                    <button id="btn-toggle-guide" class="btn">Tutup Panduan</button>
+                    <button id="btn-cek-akurasi" class="btn btn-warning">Cek Akurasi</button>
                     <button id="btn-export" class="btn btn-primary">Simpan PNG</button>
                 </div>
-                <div id="current-aksara-info" class="current-aksara-info">
-                    Pilih aksara pada grid di atas untuk mulai berlatih.
-                </div>
-            </section>
+            </div>
 
-            <!-- Modul 3: Transliterasi -->
-            <section id="section-transliterasi" class="module-section">
-                <header class="section-header">
-                    <h2>Transliterasi</h2>
-                    <p>Ketik teks latin untuk diubah menjadi aksara Jawa seketika.</p>
-                </header>
-                <div class="transliterasi-container">
-                    <div class="input-group">
-                        <label for="latin-input">Teks Latin</label>
-                        <textarea id="latin-input" placeholder="Ketik di sini (contoh: hanacaraka)..."></textarea>
-                    </div>
-                    <div class="output-group">
-                        <label>Hasil Aksara</label>
-                        <div id="aksara-output" class="aksara-output" placeholder="Hasil akan muncul di sini..."></div>
+            <div class="canvas-container neo-card">
+                <canvas id="tracing-canvas"></canvas>
+                <div id="accuracy-result" class="accuracy-result hidden"></div>
+            </div>
+
+            <div id="current-aksara-info" class="current-aksara-info neo-card">
+                Pilih aksara di menu Edukasi atau Kuis untuk berlatih.
+            </div>
+        </section>
+
+        <!-- Transliterasi -->
+        <section id="section-transliterasi" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Transliterasi</h2>
+                <p>Ketik teks latin untuk diubah menjadi aksara Jawa seketika.</p>
+            </header>
+            <div class="transliterasi-container neo-card">
+                <div class="input-group">
+                    <label for="latin-input">Teks Latin</label>
+                    <textarea id="latin-input" class="neo-input"
+                        placeholder="Ketik di sini (contoh: hanacaraka)..."></textarea>
+                </div>
+                <div class="output-group">
+                    <label>Hasil Aksara</label>
+                    <div id="aksara-output" class="aksara-output neo-input" placeholder="Hasil akan muncul di sini...">
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+
+        <!-- Kuis Interaktif -->
+        <section id="section-kuis" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Kuis Tebak Aksara</h2>
+                <p>Uji kemampuanmu mengenali aksara Hanacaraka.</p>
+            </header>
+
+            <div class="kuis-container neo-card text-center">
+                <div id="kuis-question" class="kuis-question">
+                    <div class="kuis-aksara">?</div>
+                </div>
+
+                <div id="kuis-options" class="kuis-options">
+                    <!-- Options generated via JS -->
+                </div>
+
+                <div id="kuis-feedback" class="kuis-feedback hidden">
+                    <!-- Feedback -->
+                </div>
+
+                <div class="kuis-controls mt-20">
+                    <button id="btn-next-kuis" class="btn btn-primary w-full btn-large">Ganti Pertanyaan</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kamus: Penerjemah Indonesia - Jawa Ngoko -->
+        <section id="section-kamus" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Kamus Jawa Ngoko</h2>
+                <p>Terjemahkan kata &amp; kalimat Bahasa Indonesia ke Bahasa Jawa (Ngoko) secara instan.</p>
+            </header>
+
+            <div class="neo-card kamus-container">
+                <div class="kamus-layout">
+                    <div class="kamus-panel">
+                        <div class="kamus-panel-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="3" width="20" height="18" rx="3" fill="#E8D5B7" stroke="#1A1510" stroke-width="2"/>
+                                <path d="M8 7h8M8 11h8M8 15h5" stroke="#1A1510" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <label for="kamus-input">Bahasa Indonesia</label>
+                        </div>
+                        <textarea id="kamus-input" class="neo-input kamus-textarea" placeholder="Ketik kalimat Indonesia di sini...
+Contoh: Saya pergi ke sekolah dan belajar dengan teman."></textarea>
+                        <button id="btn-kamus-clear" class="btn btn-small">Hapus</button>
+                    </div>
+
+                    <div class="kamus-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none">
+                            <defs>
+                                <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#F39C12"/>
+                                    <stop offset="100%" stop-color="#E74C3C"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="url(#arrowGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="kamus-panel">
+                        <div class="kamus-panel-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                <defs>
+                                    <linearGradient id="kamusStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#F1C40F"/>
+                                        <stop offset="100%" stop-color="#E74C3C"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="url(#kamusStarGrad)" stroke="#1A1510" stroke-width="1.5"/>
+                            </svg>
+                            <label>Bahasa Jawa Ngoko</label>
+                        </div>
+                        <div id="kamus-output" class="neo-input kamus-output" placeholder="Hasil terjemahan muncul di sini..."></div>
+                        <div id="kamus-stats" class="kamus-stats"></div>
+                    </div>
+                </div>
+
+                <div class="kamus-info neo-card" style="margin-top:20px; background: #FFFDE7;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="#F1C40F" stroke="#1A1510" stroke-width="2"/>
+                            <path d="M12 8v4M12 16h.01" stroke="#1A1510" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <strong>Cara Kerja Kamus</strong>
+                    </div>
+                    <p style="font-size:0.95rem; margin:0;">Sistem menerjemahkan kata per kata secara cerdas. Kata yang tidak ditemukan di kamus akan ditampilkan <em>apa adanya</em> (digarisbawahi) — ini normal karena banyak nama/istilah khusus yang sama di kedua bahasa. Semakin banyak konteks, hasil semakin akurat!</p>
+                </div>
+            </div>
+
+            <!-- Quick Reference Kamus -->
+            <div class="kamus-quick-ref neo-card" style="margin-top:20px;">
+                <h3 style="margin-bottom:15px;">📚 Frasa Sehari-Hari</h3>
+                <div class="quick-ref-grid" id="quick-ref-grid"></div>
+            </div>
+        </section>
+
+        <!-- Budaya Jawa -->
+        <section id="section-budaya" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Ensiklopedia Budaya Jawa</h2>
+                <p>Jelajahi kekayaan seni, musik, dan kebudayaan Tanah Jawa yang adiluhung.</p>
+            </header>
+
+            <div class="budaya-tabs">
+                <button class="budaya-tab-btn active" data-tab="semua">Semua</button>
+                <button class="budaya-tab-btn" data-tab="musik">🎵 Musik</button>
+                <button class="budaya-tab-btn" data-tab="tari">💃 Tari</button>
+                <button class="budaya-tab-btn" data-tab="seni">🎨 Seni &amp; Kerajinan</button>
+                <button class="budaya-tab-btn" data-tab="filosofi">📜 Filosofi</button>
+            </div>
+
+            <div id="budaya-grid" class="budaya-grid"></div>
+        </section>
     </main>
 
-    <footer class="app-footer">
-        <div class="container">
-            <p>&copy; 2026 AksaraTrace. Dibangun untuk pelestarian budaya.</p>
+    <!-- Custom Neo Brutalism Modal -->
+    <div id="neo-modal-overlay" class="neo-modal-overlay hidden">
+        <div class="neo-modal neo-card">
+            <h3 id="neo-modal-title" class="neo-modal-title">Perhatian</h3>
+            <p id="neo-modal-message" class="neo-modal-message">Pesan akan muncul di sini.</p>
+            <button id="btn-close-modal" class="btn btn-primary w-full mt-20">Oke, Siap!</button>
         </div>
-    </footer>
+    </div>
 
-    <script type="module" src="script.js"></script>
+    <script defer src="script.js"></script>
 </body>
 
 </html>
