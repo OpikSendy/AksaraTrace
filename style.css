@@ -1,0 +1,340 @@
+:root {
+    --color-bg: #F5F0E8;
+    /* Krem hangat, seperti kertas tua */
+    --color-surface: #EDE8DC;
+    /* Kartu & panel */
+    --color-accent: #8B2E0F;
+    /* Merah bata — warna brand utama */
+    --color-accent-light: #C4622D;
+    /* Aksen sekunder */
+    --color-text-primary: #2C2416;
+    /* Hampir hitam, warm */
+    --color-text-secondary: #5C4A32;
+    /* Coklat medium */
+    --color-stroke: #8B2E0F;
+    /* Warna tinta user di canvas */
+    --color-guide: rgba(139, 46, 15, 0.12);
+    /* Guide overlay aksara */
+
+    --font-display: 'Playfair Display', serif;
+    /* Judul, headings */
+    --font-body: Georgia, 'Times New Roman', serif;
+    /* Body text */
+    --font-javanese: 'Noto Serif Javanese', serif;
+    /* Aksara unicode */
+}
+
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    color: var(--color-accent);
+    font-weight: 700;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Typography Enhancements */
+.app-header {
+    text-align: center;
+    padding: 40px 0;
+    border-bottom: 2px solid var(--color-surface);
+    margin-bottom: 40px;
+}
+
+.app-logo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.app-header p {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+.section-header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.section-header p {
+    color: var(--color-text-secondary);
+}
+
+.module-section {
+    margin-bottom: 60px;
+}
+
+/* Edukasi Grid */
+.aksara-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.aksara-card {
+    background-color: var(--color-surface);
+    border: 1px solid rgba(139, 46, 15, 0.2);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.aksara-card:hover,
+.aksara-card.active {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(44, 36, 22, 0.1);
+    border-color: var(--color-accent);
+}
+
+.aksara-card.active {
+    background-color: #FFF;
+    border-width: 2px;
+}
+
+.aksara-unicode {
+    font-family: var(--font-javanese);
+    font-size: 4rem;
+    color: var(--color-accent);
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.aksara-latin {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.aksara-gatra {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.aksara-filosofi {
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    margin-top: auto;
+    border-top: 1px dashed rgba(139, 46, 15, 0.2);
+    padding-top: 10px;
+}
+
+/* Split Layout for Desktop */
+.split-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Tracing Canvas */
+.canvas-container {
+    background-color: #FFF;
+    /* Pure white for contrast against ink */
+    border: 2px solid var(--color-text-secondary);
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    max-width: 500px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    /* VERY IMPORTANT: Prevents scrolling while tracing */
+    cursor: crosshair;
+}
+
+.canvas-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-text-secondary);
+    padding: 10px 20px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-text-secondary);
+    color: var(--color-bg);
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-light);
+}
+
+.current-aksara-info {
+    text-align: center;
+    font-style: italic;
+    color: var(--color-text-secondary);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+}
+
+/* Transliterasi */
+.transliterasi-container {
+    background-color: var(--color-surface);
+    border-radius: 8px;
+    padding: 30px;
+    border: 1px solid rgba(139, 46, 15, 0.2);
+    height: 100%;
+}
+
+.input-group,
+.output-group {
+    margin-bottom: 20px;
+}
+
+.input-group label,
+.output-group label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--color-accent);
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-text-secondary);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    resize: vertical;
+    color: var(--color-text-primary);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(139, 46, 15, 0.2);
+}
+
+.aksara-output {
+    width: 100%;
+    min-height: 120px;
+    padding: 15px;
+    background-color: #FFF;
+    border: 1px solid var(--color-text-secondary);
+    border-radius: 4px;
+    font-family: var(--font-javanese);
+    font-size: 2.5rem;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.aksara-output:empty::before {
+    content: attr(placeholder);
+    color: #999;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* Footer */
+.app-footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid var(--color-surface);
+    margin-top: 40px;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 480px) {
+    .aksara-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .aksara-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .aksara-grid {
+        grid-template-columns: repeat(5, 1fr);
+        /* 5x4 = 20 items */
+    }
+
+    .split-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    #section-tracing,
+    #section-transliterasi {
+        flex: 1;
+        width: 50%;
+    }
+}
