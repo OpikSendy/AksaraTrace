@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AksaraTrace - Lestarikan Aksara Jawa</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+Javanese:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="assets/images/AksaraTrace.png" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="container">
+            <img src="assets/images/AksaraTrace_rmbg.png" alt="AksaraTrace Logo" class="app-logo">
+            <p>Platform Edukasi & Pelestarian Aksara Jawa Hanacaraka</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Modul 1: Edukasi -->
+        <section id="section-edukasi" class="module-section">
+            <header class="section-header">
+                <h2>Mengenal Hanacaraka</h2>
+                <p>20 aksara dasar yang sarat akan makna filosofis kehidupan.</p>
+            </header>
+            <div id="aksara-grid" class="aksara-grid">
+                <!-- Kartu aksara akan di-generate via JavaScript -->
+            </div>
+        </section>
+
+        <div class="split-layout">
+            <!-- Modul 2: Tracing Canvas -->
+            <section id="section-tracing" class="module-section">
+                <header class="section-header">
+                    <h2>Latihan Menulis</h2>
+                    <p>Pilih aksara di atas dan ikuti panduan garisnya.</p>
+                </header>
+                <div class="canvas-container">
+                    <canvas id="tracing-canvas"></canvas>
+                </div>
+                <div class="canvas-controls">
+                    <button id="btn-clear" class="btn">Bersihkan</button>
+                    <button id="btn-toggle-guide" class="btn">Sembunyikan Panduan</button>
+                    <button id="btn-export" class="btn btn-primary">Simpan PNG</button>
+                </div>
+                <div id="current-aksara-info" class="current-aksara-info">
+                    Pilih aksara pada grid di atas untuk mulai berlatih.
+                </div>
+            </section>
+
+            <!-- Modul 3: Transliterasi -->
+            <section id="section-transliterasi" class="module-section">
+                <header class="section-header">
+                    <h2>Transliterasi</h2>
+                    <p>Ketik teks latin untuk diubah menjadi aksara Jawa seketika.</p>
+                </header>
+                <div class="transliterasi-container">
+                    <div class="input-group">
+                        <label for="latin-input">Teks Latin</label>
+                        <textarea id="latin-input" placeholder="Ketik di sini (contoh: hanacaraka)..."></textarea>
+                    </div>
+                    <div class="output-group">
+                        <label>Hasil Aksara</label>
+                        <div id="aksara-output" class="aksara-output" placeholder="Hasil akan muncul di sini..."></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 AksaraTrace. Dibangun untuk pelestarian budaya.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
