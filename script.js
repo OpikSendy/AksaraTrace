@@ -720,7 +720,7 @@ function translateToNgoko(text) {
                 tokenIndices.push(j);
                 j++;
             }
-            if (words < wordCount) break;
+            if (words < wordCount) continue;
 
             const phraseKey = phrase.trim().toLowerCase();
             if (kamusData[phraseKey]) {
@@ -750,18 +750,18 @@ function translateToNgoko(text) {
 }
 
 const QUICK_REF = [
-    { indo: 'Selamat pagi', ngoko: 'Sugeng enjing' },
-    { indo: 'Terima kasih', ngoko: 'Matur nuwun' },
-    { indo: 'Maaf', ngoko: 'Ngapunten' },
-    { indo: 'Saya pergi', ngoko: 'Aku lunga' },
-    { indo: 'Saya makan', ngoko: 'Aku mangan' },
-    { indo: 'Di mana rumah?', ngoko: 'Ing endi omah?' },
     { indo: 'Apa kabar?', ngoko: 'Piye kabare?' },
-    { indo: 'Saya tidak tahu', ngoko: 'Aku ora ngerti' },
-    { indo: 'Sampai jumpa', ngoko: 'Sugeng tindak' },
+    { indo: 'Terima kasih', ngoko: 'Matur nuwun' },
+    { indo: 'Maaf', ngoko: 'Ngapuro' },
+    { indo: 'Saya pergi', ngoko: 'Aku lungo' },
+    { indo: 'Saya makan', ngoko: 'Aku mangan' },
+    { indo: 'Di mana rumah?', ngoko: 'Neng endi omah?' },
+    { indo: 'Tidak apa-apa', ngoko: 'Ora opo-opo' },
+    { indo: 'Saya tidak tahu', ngoko: 'Aku ora reti' },
+    { indo: 'Sampai jumpa', ngoko: 'Dadah' },
     { indo: 'Saya lapar', ngoko: 'Aku luwe' },
-    { indo: 'Air minum', ngoko: 'Banyu omben' },
-    { indo: 'Rumah besar', ngoko: 'Omah gedhe' },
+    { indo: 'Sebentar dulu', ngoko: 'Sek sek...' },
+    { indo: 'Sudah habis', ngoko: 'Wis entek' },
 ];
 
 function initKamus() {
@@ -815,65 +815,156 @@ function initKamus() {
 // ==========================================
 // MODUL: BUDAYA JAWA
 // ==========================================
+
+// Realistic hand-drawn SVG icons (not emoji)
+const BUDAYA_SVG = {
+    gamelan: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <ellipse cx="40" cy="52" rx="30" ry="10" fill="#B8860B" stroke="#5D4037" stroke-width="2"/>
+        <ellipse cx="40" cy="42" rx="30" ry="10" fill="#D4A017" stroke="#5D4037" stroke-width="2"/>
+        <rect x="10" y="28" width="60" height="16" rx="3" fill="#E5B800" stroke="#5D4037" stroke-width="2"/>
+        <ellipse cx="40" cy="28" rx="30" ry="10" fill="#FFD740" stroke="#5D4037" stroke-width="2"/>
+        <ellipse cx="40" cy="28" rx="10" ry="4" fill="#F9A825" stroke="#5D4037" stroke-width="1.5"/>
+        <line x1="40" y1="8" x2="40" y2="24" stroke="#5D4037" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="40" cy="8" r="4" fill="#5D4037"/>
+    </svg>`,
+    wayang: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <line x1="40" y1="4" x2="40" y2="76" stroke="#5D4037" stroke-width="2.5"/>
+        <ellipse cx="40" cy="18" rx="10" ry="12" fill="#F5CBA7" stroke="#5D4037" stroke-width="2"/>
+        <path d="M30 22 Q20 30 22 45 Q25 55 35 58 L40 60 L45 58 Q55 55 58 45 Q60 30 50 22" fill="#E8A87C" stroke="#5D4037" stroke-width="2"/>
+        <path d="M35 58 Q38 70 40 74 Q42 70 45 58" fill="#D4804A" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M22 35 Q10 32 8 40 Q10 48 22 45" fill="#E8A87C" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M58 35 Q70 32 72 40 Q70 48 58 45" fill="#E8A87C" stroke="#5D4037" stroke-width="1.5"/>
+        <circle cx="36" cy="15" r="2" fill="#5D4037"/>
+        <circle cx="44" cy="15" r="2" fill="#5D4037"/>
+        <path d="M36 22 Q40 25 44 22" stroke="#5D4037" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>`,
+    batik: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <rect x="8" y="8" width="64" height="64" rx="4" fill="#FFF8E1" stroke="#5D4037" stroke-width="2"/>
+        <path d="M20 20 Q30 14 40 20 Q50 26 60 20" stroke="#B8860B" stroke-width="2" fill="none"/>
+        <path d="M20 32 Q30 26 40 32 Q50 38 60 32" stroke="#E53935" stroke-width="2" fill="none"/>
+        <path d="M20 44 Q30 38 40 44 Q50 50 60 44" stroke="#1565C0" stroke-width="2" fill="none"/>
+        <path d="M20 56 Q30 50 40 56 Q50 62 60 56" stroke="#2E7D32" stroke-width="2" fill="none"/>
+        <circle cx="40" cy="20" r="3" fill="#B8860B"/>
+        <circle cx="40" cy="32" r="3" fill="#E53935"/>
+        <circle cx="40" cy="44" r="3" fill="#1565C0"/>
+        <circle cx="40" cy="56" r="3" fill="#2E7D32"/>
+        <path d="M28 14 Q28 34 28 66" stroke="#B8860B" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+        <path d="M52 14 Q52 34 52 66" stroke="#B8860B" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+    </svg>`,
+    bedhaya: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <ellipse cx="40" cy="16" rx="8" ry="9" fill="#F5CBA7" stroke="#5D4037" stroke-width="2"/>
+        <path d="M32 25 Q24 28 20 40 Q18 52 22 60 L40 64 L58 60 Q62 52 60 40 Q56 28 48 25 Z" fill="#9C27B0" stroke="#5D4037" stroke-width="2"/>
+        <path d="M20 40 Q10 36 8 44 Q10 52 20 52" fill="#CE93D8" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M60 40 Q70 36 72 44 Q70 52 60 52" fill="#CE93D8" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M30 60 Q35 68 40 72 Q45 68 50 60" fill="#7B1FA2" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M34 8 Q40 4 46 8" stroke="#FFD700" stroke-width="2" fill="none"/>
+        <circle cx="40" cy="5" r="3" fill="#FFD700"/>
+    </svg>`,
+    serimpi: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <ellipse cx="40" cy="16" rx="7" ry="8" fill="#F5CBA7" stroke="#5D4037" stroke-width="2"/>
+        <path d="M33 24 Q22 30 18 44 Q16 56 20 64 L40 68 L60 64 Q64 56 62 44 Q58 30 47 24 Z" fill="#E91E63" stroke="#5D4037" stroke-width="2"/>
+        <path d="M18 44 Q6 38 4 48 Q6 58 18 56" fill="#F48FB1" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M62 44 Q74 38 76 48 Q74 58 62 56" fill="#F48FB1" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M32 64 Q36 72 40 76 Q44 72 48 64" fill="#C2185B" stroke="#5D4037" stroke-width="1.5"/>
+        <ellipse cx="40" cy="8" rx="6" ry="3" fill="#FFD700" stroke="#5D4037" stroke-width="1.5"/>
+    </svg>`,
+    keris: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <path d="M38 72 L38 32 Q36 28 38 24 Q40 20 42 24 L46 32 Q46 36 42 40 Q38 44 42 48 Q46 52 42 56 Q38 60 42 64 L42 72 Z" fill="#B0BEC5" stroke="#37474F" stroke-width="2"/>
+        <path d="M38 32 Q36 24 38 16 Q40 10 42 16 L44 24 Q42 28 40 32 Z" fill="#CFD8DC" stroke="#37474F" stroke-width="1.5"/>
+        <rect x="32" y="30" width="16" height="5" rx="2" fill="#8D6E63" stroke="#5D4037" stroke-width="1.5"/>
+        <rect x="34" y="62" width="12" height="12" rx="3" fill="#6D4C41" stroke="#5D4037" stroke-width="2"/>
+        <path d="M36 18 Q40 6 44 18" stroke="#90A4AE" stroke-width="1" fill="none"/>
+    </svg>`,
+    reog: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <ellipse cx="40" cy="46" rx="26" ry="20" fill="#F57F17" stroke="#5D4037" stroke-width="2"/>
+        <ellipse cx="40" cy="42" rx="18" ry="14" fill="#FF8F00" stroke="#5D4037" stroke-width="1.5"/>
+        <circle cx="32" cy="40" r="5" fill="#FFEE58" stroke="#5D4037" stroke-width="1.5"/>
+        <circle cx="48" cy="40" r="5" fill="#FFEE58" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M33 50 Q40 56 47 50" stroke="#5D4037" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M14 20 Q20 8 28 16 Q32 10 40 14 Q48 10 52 16 Q60 8 66 20 Q56 18 52 26 Q46 20 40 24 Q34 20 28 26 Q24 18 14 20Z" fill="#43A047" stroke="#2E7D32" stroke-width="1.5"/>
+        <path d="M22 24 Q18 12 26 10" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
+        <path d="M58 24 Q62 12 54 10" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
+    </svg>`,
+    filosofi: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <path d="M16 68 L16 20 Q16 14 22 12 L58 12 Q64 12 64 18 L64 68 Z" fill="#FFF8E1" stroke="#5D4037" stroke-width="2"/>
+        <path d="M16 68 Q16 74 22 74 L64 74 L64 68 Z" fill="#E8D5B7" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M14 20 Q8 20 8 26 L8 72 Q8 76 14 76 L22 76 L22 14 Z" fill="#D4A574" stroke="#5D4037" stroke-width="2"/>
+        <line x1="26" y1="24" x2="58" y2="24" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
+        <line x1="26" y1="32" x2="58" y2="32" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
+        <line x1="26" y1="40" x2="50" y2="40" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
+        <line x1="26" y1="48" x2="54" y2="48" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
+        <line x1="26" y1="56" x2="48" y2="56" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+    tembang: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <path d="M28 56 L28 20 L64 12 L64 48" stroke="#5D4037" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="22" cy="58" r="8" fill="#8D6E63" stroke="#5D4037" stroke-width="2"/>
+        <circle cx="58" cy="50" r="8" fill="#8D6E63" stroke="#5D4037" stroke-width="2"/>
+        <ellipse cx="22" cy="58" rx="8" ry="5" fill="#A1887F" stroke="#5D4037" stroke-width="1.5"/>
+        <ellipse cx="58" cy="50" rx="8" ry="5" fill="#A1887F" stroke="#5D4037" stroke-width="1.5"/>
+        <path d="M44 18 Q50 14 56 16" stroke="#FFD700" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M36 22 Q42 18 48 20" stroke="#FFD700" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>`
+};
+
 const BUDAYA_DATA = [
     {
-        id: 'gamelan', kategori: 'musik', icon: '🥁', warna: '#FFF3CD',
+        id: 'gamelan', kategori: 'musik', svgKey: 'gamelan', warna: '#FFF8E1', warnaTag: '#F9A825',
         nama: 'Gamelan',
         deskripsi: 'Orkestra tradisional Jawa yang terdiri dari alat musik pukul seperti gong, kenong, saron, bonang, dan kendang. Gamelan adalah jiwa dari kebudayaan Jawa.',
         fakta: ['Abad ke-8', 'UNESCO 2021', 'Ratusan instrumen'],
         detail: '<p><strong>Gamelan</strong> adalah ansambel musik yang berasal dari budaya Jawa, Bali, dan Sunda. Kata "gamelan" berasal dari bahasa Jawa, <em>gamel</em>, yang berarti "memukul".</p><p>Gamelan Jawa didominasi oleh nada-nada yang lebih lembut dan meditatif dibanding Gamelan Bali. Ada dua tangga nada utama: <strong>Pelog</strong> (7 nada) dan <strong>Slendro</strong> (5 nada).</p><ul><li><strong>Gong</strong>: Penanda akhir gatra (frase) terbesar</li><li><strong>Saron</strong>: Melodi utama dari bilah logam</li><li><strong>Kendang</strong>: Pengatur tempo dan ritme</li><li><strong>Bonang</strong>: Melodi ornamental dari gong kecil</li><li><strong>Gender</strong>: Instrumen melodi dengan resonator bambu</li></ul><p>Pada tahun 2021, UNESCO menetapkan Gamelan sebagai Warisan Budaya Tak Benda Kemanusiaan.</p>'
     },
     {
-        id: 'wayang', kategori: 'seni', icon: '🎭', warna: '#FFE0B2',
+        id: 'wayang', kategori: 'seni', svgKey: 'wayang', warna: '#FFF3E0', warnaTag: '#FB8C00',
         nama: 'Wayang Kulit',
         deskripsi: 'Seni pertunjukan bayangan menggunakan boneka dari kulit kerbau yang diukir halus. Dimainkan oleh dalang yang juga menjadi narator dan penggerak wayang.',
         fakta: ['Kulit kerbau', 'UNESCO 2003', 'Semalam suntuk'],
         detail: '<p><strong>Wayang Kulit</strong> adalah seni teater bayangan tertua di dunia yang masih berkembang. UNESCO mengakuinya sebagai Masterpiece of the Oral and Intangible Heritage of Humanity pada 2003.</p><p>Lakon yang dimainkan umumnya bersumber dari epik Mahabharata dan Ramayana, yang diadaptasi ke dalam konteks budaya Jawa. Tokoh utama dalam wayang Jawa antara lain:</p><ul><li><strong>Pandawa Lima</strong>: Penjelmaan dharma dan kebenaran</li><li><strong>Punakawan</strong>: Semar, Gareng, Petruk, Bagong — penasehat bijak berbentuk lawak</li><li><strong>Kurawa</strong>: Simbol keserakahan dan kejahatan</li></ul><p>Seorang <strong>dalang</strong> menjadi sutradara, aktor, dan narator sekaligus — bisa memainkan semalam suntuk (8–9 jam) seorang diri dibantu gamelan.</p>'
     },
     {
-        id: 'batik', kategori: 'seni', icon: '🎨', warna: '#E8F5E9',
+        id: 'batik', kategori: 'seni', svgKey: 'batik', warna: '#F9FBE7', warnaTag: '#9E9D24',
         nama: 'Batik Jawa',
         deskripsi: 'Seni melukis kain menggunakan lilin panas (malam) dan pewarna alami. Setiap motif batik menyimpan filosofi dan makna mendalam tentang kehidupan.',
         fakta: ['Canting & malam', 'UNESCO 2009', '1000+ motif'],
         detail: '<p><strong>Batik</strong> adalah teknik pewarnaan kain dengan menggunakan malam (lilin panas) sebagai perintang warna. Kata batik berasal dari Jawa: <em>amba</em> (menulis) dan <em>titik</em>.</p><p>Batik Jawa dibagi menjadi dua gaya utama:</p><ul><li><strong>Batik Kraton</strong>: Motif seperti Parang, Kawung, Sido Mukti — hanya boleh dikenakan bangsawan</li><li><strong>Batik Pesisir</strong>: Motif bebas, warna cerah, pengaruh Tionghoa dan Arab</li></ul><p>Motif batik yang terkenal:</p><ul><li><strong>Parang Rusak</strong>: Simbol kekuatan dan keberanian, milik raja</li><li><strong>Kawung</strong>: Empat lingkaran = empat arah mata angin, simbol keseimbangan</li><li><strong>Mega Mendung</strong>: Dari Cirebon, motif awan bertingkat</li></ul><p>UNESCO menetapkan Batik Indonesia sebagai Warisan Budaya Tak Benda pada 2009.</p>'
     },
     {
-        id: 'bedhaya', kategori: 'tari', icon: '💃', warna: '#F3E5F5',
+        id: 'bedhaya', kategori: 'tari', svgKey: 'bedhaya', warna: '#F3E5F5', warnaTag: '#8E24AA',
         nama: 'Tari Bedhaya',
         deskripsi: 'Tari sakral keraton yang ditarikan oleh 9 penari putri. Melambangkan persatuan antara manusia, alam semesta, dan Sang Pencipta.',
         fakta: ['9 penari', 'Sakral Keraton', 'Filosofi tinggi'],
         detail: '<p><strong>Bedhaya</strong> adalah tarian paling sakral di keraton Jawa (Yogyakarta dan Surakarta). Jumlah 9 penari melambangkan wali sanga (sembilan wali) atau sembilan lubang pada tubuh manusia.</p><p>Tarian ini bergerak sangat lambat dan meditatif — penonton perlu pemahaman khusus untuk menangkap makna di setiap gerakannya. Musik pengiringnya adalah Gamelan dengan tembang Jawa.</p><ul><li><strong>Bedhaya Ketawang</strong>: Tarian paling sakral di Kasunanan Surakarta, hanya ditampilkan saat peringatan tahta raja</li><li><strong>Busana</strong>: Kain batik Dodot, mahkota, dan riasan tebal khas</li><li><strong>Durasi</strong>: Bisa mencapai 2–3 jam</li></ul><p>Gerakan tangan (mudra) dan posisi tubuh dalam Bedhaya mengandung simbolisme kosmik yang sangat dalam.</p>'
     },
     {
-        id: 'serimpi', kategori: 'tari', icon: '🌸', warna: '#FCE4EC',
+        id: 'serimpi', kategori: 'tari', svgKey: 'serimpi', warna: '#FCE4EC', warnaTag: '#D81B60',
         nama: 'Tari Serimpi',
         deskripsi: 'Tari putri keraton yang ditarikan oleh 4 penari, mewakili empat unsur alam: api, air, angin, dan tanah. Gerakannya lembut dan penuh keanggunan.',
         fakta: ['4 penari', 'Unsur alam', 'Keraton Yogya'],
         detail: '<p><strong>Serimpi</strong> adalah tarian sakral keraton Yogyakarta yang melibatkan 4 penari putri. Angka empat merepresentasikan empat arah angin, empat elemen alam, dan empat sifat manusia.</p><ul><li><strong>Grama</strong>: Api — semangat dan tekad</li><li><strong>Toya</strong>: Air — keluwesan dan adaptasi</li><li><strong>Angin</strong>: Udara — kebebasan pikiran</li><li><strong>Bumi</strong>: Tanah — keteguhan hati</li></ul><p>Gerakan Serimpi sangat halus dan lambat, mengikuti filosofi Jawa tentang <em>alon-alon waton kelakon</em> (pelan namun pasti tercapai). Kostumnya berupa kain batik parang, kemben, dan hiasan kepala khas keraton.</p>'
     },
     {
-        id: 'keris', kategori: 'seni', icon: '⚔️', warna: '#E3F2FD',
+        id: 'keris', kategori: 'seni', svgKey: 'keris', warna: '#ECEFF1', warnaTag: '#546E7A',
         nama: 'Keris',
         deskripsi: 'Senjata pusaka berbilah asimetris dengan pamor unik. Lebih dari senjata, keris adalah karya seni, benda spiritual, dan simbol status sosial.',
         fakta: ['UNESCO 2005', 'Pamor baja', '11 luk (lekukan)'],
         detail: '<p><strong>Keris</strong> adalah senjata tikam khas Nusantara dengan bilah asimetris berlekuk (luk) yang khas. UNESCO mengakuinya sebagai Warisan Budaya Tak Benda pada 2005.</p><p>Keris bukan sekadar senjata — ia adalah:</p><ul><li><strong>Simbol status</strong>: Jumlah luk dan jenis pamor menunjukkan derajat sosial</li><li><strong>Benda spiritual</strong>: Dipercaya memiliki kekuatan magis penjaga</li><li><strong>Karya seni tinggi</strong>: Proses pembuatan bisa berbulan-bulan oleh Empu (pandai keris)</li></ul><p>Bagian-bagian keris:</p><ul><li><strong>Wilah</strong>: Bilah besi/baja berlapis pamor (meteorit/nikel)</li><li><strong>Ganja</strong>: Pangkal bilah yang melindungi tangan</li><li><strong>Hulu</strong>: Gagang keris dari kayu atau gading</li><li><strong>Warangka</strong>: Sarung keris dari kayu timoho</li></ul>'
     },
     {
-        id: 'reog', kategori: 'seni', icon: '🦁', warna: '#FFF9C4',
+        id: 'reog', kategori: 'seni', svgKey: 'reog', warna: '#FFFDE7', warnaTag: '#F57F17',
         nama: 'Reog Ponorogo',
         deskripsi: 'Seni pertunjukan spektakuler dari Ponorogo, Jawa Timur. Penampilan utamanya adalah topeng Dadak Merak — singa berkepala merak berbobot 40–50 kg.',
         fakta: ['Ponorogo', '40-50 kg topeng', 'Bulu merak asli'],
         detail: '<p><strong>Reog Ponorogo</strong> adalah kesenian rakyat dari Kabupaten Ponorogo, Jawa Timur, yang terkenal dengan topeng Dadak Merak yang sangat besar dan berat.</p><p>Tokoh utama dalam pertunjukan Reog:</p><ul><li><strong>Singo Barong</strong>: Penari yang membawa topeng kepala singa bertutup merak seberat 40-50 kg dengan rahangnya saja</li><li><strong>Warok</strong>: Pria berbusana hitam, simbol kekuatan spiritual dan moral</li><li><strong>Jathil</strong>: Prajurit berkuda, kini ditarikan oleh wanita</li><li><strong>Klono Sewandono</strong>: Raja yang jatuh cinta</li></ul><p>Reog bukan sekadar hiburan — ia adalah ekspresi kebanggaan, kekuatan, dan identitas masyarakat Ponorogo yang diwariskan turun-temurun.</p>'
     },
     {
-        id: 'javanophilosophy', kategori: 'filosofi', icon: '📜', warna: '#E8EAF6',
+        id: 'javanophilosophy', kategori: 'filosofi', svgKey: 'filosofi', warna: '#FFF8E1', warnaTag: '#6D4C41',
         nama: 'Filosofi Jawa',
         deskripsi: 'Kearifan lokal Jawa mencakup konsep Hamemayu Hayuning Bawana (menjaga keindahan dunia), Manunggaling Kawula Gusti, dan Memayu Hayuning Urip.',
         fakta: ['Hamemayu', 'Sangkan Paran', 'Alon-alon'],
         detail: '<p>Orang Jawa memiliki kekayaan filsafat hidup yang mendalam. Beberapa prinsip utama:</p><ul><li><strong>Hamemayu Hayuning Bawana</strong>: Manusia berkewajiban menjaga keselamatan dan keindahan dunia — konsep ramah lingkungan asli Jawa</li><li><strong>Manunggaling Kawula Gusti</strong>: Penyatuan manusia dengan Tuhan — spiritualitas tertinggi dalam tasawuf Jawa</li><li><strong>Nrimo ing Pandum</strong>: Menerima dengan ikhlas apa yang diberikan — bukan pasrah, tapi ketenangan batin</li><li><strong>Alon-alon waton kelakon</strong>: Pelan tapi pasti — mendahulukan kualitas daripada kecepatan</li><li><strong>Tepa slira</strong>: Empati dan tenggang rasa — merasakan perasaan orang lain</li><li><strong>Sangkan Paraning Dumadi</strong>: Kesadaran asal-usul dan tujuan hidup manusia</li></ul><p>Filosofi ini tercermin dalam seni, ritual, arsitektur, dan cara hidup masyarakat Jawa sehari-hari.</p>'
     },
     {
-        id: 'tembang', kategori: 'musik', icon: '🎶', warna: '#E0F7FA',
+        id: 'tembang', kategori: 'musik', svgKey: 'tembang', warna: '#E8F5E9', warnaTag: '#388E3C',
         nama: 'Tembang Macapat',
         deskripsi: 'Puisi musikal Jawa dengan aturan guru gatra (baris), guru wilangan (suku kata), dan guru lagu (vokal akhir). Setiap jenis tembang memiliki makna dan suasana berbeda.',
         fakta: ['11 jenis', 'Filsafat hidup', 'Gamelan'],
@@ -887,18 +978,24 @@ function renderBudayaGrid(filter) {
     const grid = document.getElementById('budaya-grid');
     grid.innerHTML = '';
     const filtered = filter === 'semua' ? BUDAYA_DATA : BUDAYA_DATA.filter(b => b.kategori === filter);
-    
+
+    if (filtered.length === 0) {
+        grid.innerHTML = '<p style="padding:20px; color:#888;">Tidak ada konten untuk kategori ini.</p>';
+        return;
+    }
+
     filtered.forEach(item => {
+        const svg = BUDAYA_SVG[item.svgKey] || '';
         const card = document.createElement('div');
         card.className = 'budaya-card';
-        const tagColors = { musik: '#E3F2FD', tari: '#FCE4EC', seni: '#FFF9C4', filosofi: '#E8EAF6' };
         card.innerHTML = `
-            <div class="budaya-card-icon" style="background:${item.warna}">${item.icon}</div>
+            <div class="budaya-card-icon" style="background:${item.warna}">${svg}</div>
             <div class="budaya-card-body">
-                <span class="budaya-card-tag" style="background:${tagColors[item.kategori] || '#eee'}">${item.kategori}</span>
+                <span class="budaya-card-tag" style="background:${item.warnaTag || '#ddd'}; color:#fff;">${item.kategori.toUpperCase()}</span>
                 <div class="budaya-card-title">${item.nama}</div>
                 <p class="budaya-card-desc">${item.deskripsi}</p>
                 <div class="budaya-card-facts">${item.fakta.map(f => `<span class="budaya-fact-chip">${f}</span>`).join('')}</div>
+                <div class="budaya-card-cta">Baca selengkapnya &rarr;</div>
             </div>`;
         card.addEventListener('click', () => openBudayaDetail(item));
         grid.appendChild(card);
@@ -916,10 +1013,10 @@ function openBudayaDetail(item) {
     overlay.innerHTML = `
         <div class="budaya-detail-card">
             <div class="budaya-detail-header" style="background:${item.warna}">
-                <div class="budaya-detail-icon">${item.icon}</div>
+                <div class="budaya-detail-icon">${BUDAYA_SVG[item.svgKey] || ''}</div>
                 <div>
-                    <div style="font-size:0.8rem; text-transform:uppercase; font-weight:700; letter-spacing:0.08em; opacity:0.7;">${item.kategori}</div>
-                    <h3 style="font-size:1.6rem; margin:4px 0;">${item.nama}</h3>
+                    <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:${item.warnaTag || '#888'}; color:#fff; padding:2px 10px; border-radius:3px;">${item.kategori}</span>
+                    <h3 style="font-size:1.5rem; margin:8px 0 6px;">${item.nama}</h3>
                     <div style="display:flex; gap:6px; flex-wrap:wrap;">${item.fakta.map(f => `<span class="budaya-fact-chip">${f}</span>`).join('')}</div>
                 </div>
             </div>
