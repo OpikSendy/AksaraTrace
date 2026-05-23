@@ -54,6 +54,7 @@ async function init() {
         initCanvas();
         initTransliterasi();
         initKuis();
+        initKamusTable();
         initKamus();
         initBudaya();
         updateStatsUI();
@@ -593,23 +594,27 @@ function initTransliterasi() {
     });
 }
 
-function transliterate(text) {
-    const output = document.getElementById('aksara-output');
-    if (!text) { output.textContent = ''; return; }
-    
+function getTransliteration(text) {
+    if (!text) return '';
     let result = ''; let i = 0;
-    while (i < text.length) {
-        if (i + 2 < text.length) {
-            const str3 = text.substr(i, 3);
+    const lowerText = text.toLowerCase();
+    while (i < lowerText.length) {
+        if (i + 2 < lowerText.length) {
+            const str3 = lowerText.substr(i, 3);
             if (syllabaryMap[str3]) { result += syllabaryMap[str3]; i += 3; continue; }
         }
-        if (i + 1 < text.length) {
-            const str2 = text.substr(i, 2);
+        if (i + 1 < lowerText.length) {
+            const str2 = lowerText.substr(i, 2);
             if (syllabaryMap[str2]) { result += syllabaryMap[str2]; i += 2; continue; }
         }
-        result += text[i]; i++;
+        result += lowerText[i]; i++;
     }
-    output.textContent = result;
+    return result;
+}
+
+function transliterate(text) {
+    const output = document.getElementById('aksara-output');
+    output.textContent = getTransliteration(text);
 }
 
 // ==========================================
@@ -763,6 +768,141 @@ const QUICK_REF = [
     { indo: 'Sebentar dulu', ngoko: 'Sek sek...' },
     { indo: 'Sudah habis', ngoko: 'Wis entek' },
 ];
+
+let currentKamusPage = 1;
+const itemsPerPage = 10;
+let filteredKamusKeys = [];
+
+function initKamusTable() {
+    const searchInput = document.getElementById('kamus-search-input');
+    if (!searchInput) return;
+    
+    // Get all keys initially and sort them alphabetically
+    filteredKamusKeys = Object.keys(kamusData).sort();
+    
+    // Initial render
+    renderKamusTable();
+    
+    // Setup search listener
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase().trim();
+        if (!query) {
+            filteredKamusKeys = Object.keys(kamusData).sort();
+        } else {
+            filteredKamusKeys = Object.keys(kamusData).filter(key => {
+                const value = kamusData[key].toLowerCase();
+                return key.toLowerCase().includes(query) || value.includes(query);
+            }).sort();
+        }
+        currentKamusPage = 1; // Reset to page 1 on search
+        renderKamusTable();
+    });
+}
+
+function renderKamusTable() {
+    const tableBody = document.getElementById('kamus-table-body');
+    const paginationContainer = document.getElementById('kamus-pagination');
+    
+    if (!tableBody) return;
+    
+    tableBody.innerHTML = '';
+    
+    const totalItems = filteredKamusKeys.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+    
+    // Clamp current page
+    if (currentKamusPage > totalPages) {
+        currentKamusPage = totalPages;
+    }
+    if (currentKamusPage < 1) {
+        currentKamusPage = 1;
+    }
+    
+    const startIndex = (currentKamusPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+    
+    const pageKeys = filteredKamusKeys.slice(startIndex, endIndex);
+    
+    if (pageKeys.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: var(--color-text-secondary);">Kosakata tidak ditemukan.</td></tr>`;
+        if (paginationContainer) paginationContainer.innerHTML = '';
+        return;
+    }
+    
+    pageKeys.forEach((key, index) => {
+        const row = document.createElement('tr');
+        const num = startIndex + index + 1;
+        const ngoko = kamusData[key];
+        const aksara = getTransliteration(ngoko);
+        
+        row.innerHTML = `
+            <td>${num}</td>
+            <td><strong>${key}</strong></td>
+            <td>${ngoko}</td>
+            <td>${aksara}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+    
+    renderKamusPagination(totalPages);
+}
+
+function renderKamusPagination(totalPages) {
+    const container = document.getElementById('kamus-pagination');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    // First Button
+    const btnFirst = document.createElement('button');
+    btnFirst.className = 'pagination-btn';
+    btnFirst.innerHTML = '&lt;&lt; First';
+    btnFirst.disabled = currentKamusPage === 1;
+    btnFirst.addEventListener('click', () => {
+        currentKamusPage = 1;
+        renderKamusTable();
+    });
+    container.appendChild(btnFirst);
+    
+    // Prev Button
+    const btnPrev = document.createElement('button');
+    btnPrev.className = 'pagination-btn';
+    btnPrev.innerHTML = '&lt; Prev';
+    btnPrev.disabled = currentKamusPage === 1;
+    btnPrev.addEventListener('click', () => {
+        currentKamusPage--;
+        renderKamusTable();
+    });
+    container.appendChild(btnPrev);
+    
+    // Page Info
+    const infoSpan = document.createElement('span');
+    infoSpan.className = 'pagination-info';
+    infoSpan.textContent = `Halaman ${currentKamusPage} dari ${totalPages}`;
+    container.appendChild(infoSpan);
+    
+    // Next Button
+    const btnNext = document.createElement('button');
+    btnNext.className = 'pagination-btn';
+    btnNext.innerHTML = 'Next &gt;';
+    btnNext.disabled = currentKamusPage === totalPages;
+    btnNext.addEventListener('click', () => {
+        currentKamusPage++;
+        renderKamusTable();
+    });
+    container.appendChild(btnNext);
+    
+    // Last Button
+    const btnLast = document.createElement('button');
+    btnLast.className = 'pagination-btn';
+    btnLast.innerHTML = 'Last &gt;&gt;';
+    btnLast.disabled = currentKamusPage === totalPages;
+    btnLast.addEventListener('click', () => {
+        currentKamusPage = totalPages;
+        renderKamusTable();
+    });
+    container.appendChild(btnLast);
+}
 
 function initKamus() {
     const input = document.getElementById('kamus-input');
