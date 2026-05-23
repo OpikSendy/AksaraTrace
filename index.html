@@ -768,6 +768,7 @@
                 <button class="nav-btn" data-target="edukasi">Edukasi</button>
                 <button class="nav-btn" data-target="tracing">Latihan</button>
                 <button class="nav-btn" data-target="transliterasi">Transliterasi</button>
+                <button class="nav-btn" data-target="penerjemah">Penerjemah</button>
                 <button class="nav-btn" data-target="kuis">Kuis</button>
                 <button class="nav-btn" data-target="kamus">Kamus</button>
                 <button class="nav-btn" data-target="budaya">Budaya</button>
@@ -986,74 +987,113 @@
             </div>
         </section>
 
-        <!-- Kamus: Penerjemah Indonesia - Jawa Ngoko -->
+        <!-- Kamus: Daftar Kosakata Jawa Ngoko -->
         <section id="section-kamus" class="page-section">
             <header class="section-header neo-card">
                 <h2>Kamus Jawa Ngoko</h2>
+                <p>Jelajahi dan cari kosakata Bahasa Indonesia ke Bahasa Jawa (Ngoko) secara lengkap.</p>
+            </header>
+
+            <div class="neo-card kamus-table-container">
+                <div class="kamus-search-bar" style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <input type="text" id="kamus-search-input" class="neo-input" placeholder="Cari kosakata dalam Bahasa Indonesia atau Jawa..." style="flex: 1;">
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="kamus-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">No</th>
+                                <th>Bahasa Indonesia</th>
+                                <th>Bahasa Jawa Ngoko</th>
+                                <th>Aksara Jawa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kamus-table-body">
+                            <!-- Rows generated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="kamus-pagination" class="pagination-controls mt-20">
+                    <!-- Pagination generated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Penerjemah: Indonesia - Jawa Ngoko -->
+        <section id="section-penerjemah" class="page-section">
+            <header class="section-header neo-card">
+                <h2>Penerjemah Indonesia - Jawa</h2>
                 <p>Terjemahkan kata &amp; kalimat Bahasa Indonesia ke Bahasa Jawa (Ngoko) secara instan.</p>
             </header>
 
-            <div class="neo-card kamus-container">
-                <div class="kamus-layout">
-                    <div class="kamus-panel">
-                        <div class="kamus-panel-header">
+            <div class="neo-card penerjemah-container">
+                <div class="penerjemah-layout">
+                    <div class="penerjemah-panel">
+                        <div class="penerjemah-panel-header">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
                                 <rect x="2" y="3" width="20" height="18" rx="3" fill="#E8D5B7" stroke="#1A1510" stroke-width="2"/>
                                 <path d="M8 7h8M8 11h8M8 15h5" stroke="#1A1510" stroke-width="2" stroke-linecap="round"/>
                             </svg>
-                            <label for="kamus-input">Bahasa Indonesia</label>
+                            <label for="penerjemah-input">Bahasa Indonesia</label>
                         </div>
-                        <textarea id="kamus-input" class="neo-input kamus-textarea" placeholder="Ketik kalimat Indonesia di sini...
-Contoh: Saya pergi ke sekolah dan belajar dengan teman."></textarea>
-                        <button id="btn-kamus-clear" class="btn btn-small">Hapus</button>
+                        <textarea id="penerjemah-input" class="neo-input penerjemah-textarea" placeholder="Ketik kalimat Indonesia di sini...&#10;Contoh: Saya pergi ke sekolah dan belajar dengan teman."></textarea>
+                        <div class="penerjemah-panel-bottom" style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
+                            <span id="penerjemah-char-count" style="font-size:0.85rem; color:var(--color-text-secondary);">0 / 500 karakter</span>
+                            <button id="btn-penerjemah-clear" class="btn btn-small">Hapus</button>
+                        </div>
                     </div>
 
-                    <div class="kamus-arrow">
+                    <div class="penerjemah-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none">
                             <defs>
-                                <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <linearGradient id="arrowGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" stop-color="#F39C12"/>
                                     <stop offset="100%" stop-color="#E74C3C"/>
                                 </linearGradient>
                             </defs>
-                            <path d="M5 12h14M13 6l6 6-6 6" stroke="url(#arrowGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="url(#arrowGrad2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
 
-                    <div class="kamus-panel">
-                        <div class="kamus-panel-header">
+                    <div class="penerjemah-panel">
+                        <div class="penerjemah-panel-header">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
                                 <defs>
-                                    <linearGradient id="kamusStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <linearGradient id="penerjemahStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                         <stop offset="0%" stop-color="#F1C40F"/>
                                         <stop offset="100%" stop-color="#E74C3C"/>
                                     </linearGradient>
                                 </defs>
-                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="url(#kamusStarGrad)" stroke="#1A1510" stroke-width="1.5"/>
+                                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="url(#penerjemahStarGrad)" stroke="#1A1510" stroke-width="1.5"/>
                             </svg>
                             <label>Bahasa Jawa Ngoko</label>
                         </div>
-                        <div id="kamus-output" class="neo-input kamus-output" placeholder="Hasil terjemahan muncul di sini..."></div>
-                        <div id="kamus-stats" class="kamus-stats"></div>
+                        <div id="penerjemah-output" class="neo-input penerjemah-output" placeholder="Hasil terjemahan muncul di sini..."></div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px; width:100%;">
+                            <div id="penerjemah-stats" class="penerjemah-stats"></div>
+                            <button id="btn-penerjemah-copy" class="btn btn-small btn-primary">Salin</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="kamus-info neo-card" style="margin-top:20px; background: #FFFDE7;">
+                <div class="penerjemah-info neo-card" style="margin-top:20px; background: #FFFDE7;">
                     <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
                             <circle cx="12" cy="12" r="10" fill="#F1C40F" stroke="#1A1510" stroke-width="2"/>
                             <path d="M12 8v4M12 16h.01" stroke="#1A1510" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <strong>Cara Kerja Kamus</strong>
+                        <strong>Cara Kerja Penerjemah</strong>
                     </div>
-                    <p style="font-size:0.95rem; margin:0;">Sistem menerjemahkan kata per kata secara cerdas. Kata yang tidak ditemukan di kamus akan ditampilkan <em>apa adanya</em> (digarisbawahi) — ini normal karena banyak nama/istilah khusus yang sama di kedua bahasa. Semakin banyak konteks, hasil semakin akurat!</p>
+                    <p style="font-size:0.95rem; margin:0;">Sistem menerjemahkan kalimat kata demi kata secara cerdas. Kata yang berhasil diterjemahkan akan disorot warna hijau <span class="kamus-word-translated" style="background:#e8f8f0; color:#27ae60; padding:1px 4px; border-radius:3px;">seperti ini</span>. Kata yang tidak ditemukan di kamus akan ditampilkan apa adanya dan bergaris bawah putus-putus. Gunakan tombol <strong>Salin</strong> untuk mengambil hasil terjemahan.</p>
                 </div>
             </div>
 
-            <!-- Quick Reference Kamus -->
-            <div class="kamus-quick-ref neo-card" style="margin-top:20px;">
-                <h3 style="margin-bottom:15px;">📚 Frasa Sehari-Hari</h3>
-                <div class="quick-ref-grid" id="quick-ref-grid"></div>
+            <!-- Quick Reference -->
+            <div class="penerjemah-quick-ref neo-card" style="margin-top:20px;">
+                <h3 style="margin-bottom:15px;">📚 Frasa Sehari-Hari (Klik untuk Menerjemahkan)</h3>
+                <div class="quick-ref-grid" id="penerjemah-quick-ref-grid"></div>
             </div>
         </section>
 
