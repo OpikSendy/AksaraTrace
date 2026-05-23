@@ -55,7 +55,7 @@ async function init() {
         initTransliterasi();
         initKuis();
         initKamusTable();
-        initKamus();
+        initPenerjemahPage();
         initBudaya();
         updateStatsUI();
     } catch (error) {
@@ -904,15 +904,20 @@ function renderKamusPagination(totalPages) {
     container.appendChild(btnLast);
 }
 
-function initKamus() {
-    const input = document.getElementById('kamus-input');
-    const output = document.getElementById('kamus-output');
-    const stats = document.getElementById('kamus-stats');
-    const btnClear = document.getElementById('btn-kamus-clear');
+function initPenerjemahPage() {
+    const input = document.getElementById('penerjemah-input');
+    const output = document.getElementById('penerjemah-output');
+    const stats = document.getElementById('penerjemah-stats');
+    const btnClear = document.getElementById('btn-penerjemah-clear');
+    const btnCopy = document.getElementById('btn-penerjemah-copy');
+    const charCount = document.getElementById('penerjemah-char-count');
+    const qGrid = document.getElementById('penerjemah-quick-ref-grid');
+
+    if (!input) return;
 
     // Quick Reference render
-    const qGrid = document.getElementById('quick-ref-grid');
     if (qGrid) {
+        qGrid.innerHTML = '';
         QUICK_REF.forEach(item => {
             const div = document.createElement('div');
             div.className = 'quick-ref-item';
@@ -928,28 +933,64 @@ function initKamus() {
 
     let debounceTimer;
     input.addEventListener('input', () => {
+        // Enforce max characters
+        if (input.value.length > 500) {
+            input.value = input.value.substring(0, 500);
+        }
+        
+        if (charCount) {
+            charCount.textContent = `${input.value.length} / 500 karakter`;
+        }
+        
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const text = input.value;
             if (!text.trim()) {
                 output.innerHTML = '';
-                stats.textContent = '';
+                if (stats) stats.textContent = '';
                 return;
             }
             const result = translateToNgoko(text);
             output.innerHTML = result.html;
             const total = result.translated + result.untranslated;
             const pct = total > 0 ? Math.round((result.translated / total) * 100) : 0;
-            stats.textContent = `✅ ${result.translated} kata diterjemahkan · ❓ ${result.untranslated} tidak ditemukan · Akurasi ~${pct}%`;
+            if (stats) {
+                stats.textContent = `✅ ${result.translated} kata diterjemahkan · ❓ ${result.untranslated} tidak ditemukan · Akurasi ~${pct}%`;
+            }
         }, 250);
     });
 
-    btnClear.addEventListener('click', () => {
-        input.value = '';
-        output.innerHTML = '';
-        stats.textContent = '';
-        input.focus();
-    });
+    if (btnClear) {
+        btnClear.addEventListener('click', () => {
+            input.value = '';
+            output.innerHTML = '';
+            if (stats) stats.textContent = '';
+            if (charCount) charCount.textContent = '0 / 500 karakter';
+            input.focus();
+        });
+    }
+
+    if (btnCopy) {
+        btnCopy.addEventListener('click', () => {
+            const textToCopy = output.textContent || '';
+            if (!textToCopy.trim()) return;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btnCopy.textContent;
+                btnCopy.textContent = 'Tersalin!';
+                btnCopy.style.backgroundColor = '#2e7d32';
+                btnCopy.style.color = '#fff';
+                
+                setTimeout(() => {
+                    btnCopy.textContent = originalText;
+                    btnCopy.style.backgroundColor = '';
+                    btnCopy.style.color = '';
+                }, 1500);
+            }).catch(err => {
+                console.error('Gagal menyalin teks: ', err);
+            });
+        });
+    }
 }
 
 // ==========================================
