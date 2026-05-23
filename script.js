@@ -818,92 +818,298 @@ function initKamus() {
 
 // Realistic hand-drawn SVG icons (not emoji)
 const BUDAYA_SVG = {
-    gamelan: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <ellipse cx="40" cy="52" rx="30" ry="10" fill="#B8860B" stroke="#5D4037" stroke-width="2"/>
-        <ellipse cx="40" cy="42" rx="30" ry="10" fill="#D4A017" stroke="#5D4037" stroke-width="2"/>
-        <rect x="10" y="28" width="60" height="16" rx="3" fill="#E5B800" stroke="#5D4037" stroke-width="2"/>
-        <ellipse cx="40" cy="28" rx="30" ry="10" fill="#FFD740" stroke="#5D4037" stroke-width="2"/>
-        <ellipse cx="40" cy="28" rx="10" ry="4" fill="#F9A825" stroke="#5D4037" stroke-width="1.5"/>
-        <line x1="40" y1="8" x2="40" y2="24" stroke="#5D4037" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="40" cy="8" r="4" fill="#5D4037"/>
+    gamelan: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="gongGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE082" />
+                <stop offset="30%" stop-color="#FFB300" />
+                <stop offset="70%" stop-color="#FF8F00" />
+                <stop offset="100%" stop-color="#8D6E63" />
+            </linearGradient>
+            <linearGradient id="gongWood" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#5D4037" />
+                <stop offset="50%" stop-color="#8D6E63" />
+                <stop offset="100%" stop-color="#3E2723" />
+            </linearGradient>
+            <radialGradient id="gongCenter" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFF9C4" />
+                <stop offset="50%" stop-color="#FFB300" />
+                <stop offset="100%" stop-color="#FF6F00" />
+            </radialGradient>
+        </defs>
+        <path d="M15 85 L20 85 L25 15 L75 15 L80 85 L85 85" stroke="#1A1510" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <rect x="8" y="80" width="16" height="8" rx="2" fill="url(#gongWood)" stroke="#1A1510" stroke-width="2"/>
+        <rect x="76" y="80" width="16" height="8" rx="2" fill="url(#gongWood)" stroke="#1A1510" stroke-width="2"/>
+        <rect x="18" y="10" width="64" height="10" rx="3" fill="url(#gongWood)" stroke="#1A1510" stroke-width="2.5"/>
+        <path d="M22 15 Q30 8 40 15 T58 15 T78 15" stroke="#FFB300" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="15" r="3" fill="#FF8F00" stroke="#1A1510" stroke-width="1"/>
+        <line x1="38" y1="20" x2="38" y2="35" stroke="#1A1510" stroke-width="2"/>
+        <line x1="62" y1="20" x2="62" y2="35" stroke="#1A1510" stroke-width="2"/>
+        <circle cx="50" cy="50" r="24" fill="url(#gongGold)" stroke="#1A1510" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="16" fill="none" stroke="#8D6E63" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <circle cx="50" cy="50" r="10" fill="none" stroke="#FF6F00" stroke-width="2"/>
+        <circle cx="50" cy="50" r="5" fill="url(#gongCenter)" stroke="#1A1510" stroke-width="1.5"/>
+        <line x1="72" y1="75" x2="88" y2="60" stroke="#1A1510" stroke-width="2.5"/>
+        <circle cx="88" cy="60" r="4.5" fill="#D32F2F" stroke="#1A1510" stroke-width="1.5"/>
     </svg>`,
-    wayang: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <line x1="40" y1="4" x2="40" y2="76" stroke="#5D4037" stroke-width="2.5"/>
-        <ellipse cx="40" cy="18" rx="10" ry="12" fill="#F5CBA7" stroke="#5D4037" stroke-width="2"/>
-        <path d="M30 22 Q20 30 22 45 Q25 55 35 58 L40 60 L45 58 Q55 55 58 45 Q60 30 50 22" fill="#E8A87C" stroke="#5D4037" stroke-width="2"/>
-        <path d="M35 58 Q38 70 40 74 Q42 70 45 58" fill="#D4804A" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M22 35 Q10 32 8 40 Q10 48 22 45" fill="#E8A87C" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M58 35 Q70 32 72 40 Q70 48 58 45" fill="#E8A87C" stroke="#5D4037" stroke-width="1.5"/>
-        <circle cx="36" cy="15" r="2" fill="#5D4037"/>
-        <circle cx="44" cy="15" r="2" fill="#5D4037"/>
-        <path d="M36 22 Q40 25 44 22" stroke="#5D4037" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    </svg>`,
-    batik: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <rect x="8" y="8" width="64" height="64" rx="4" fill="#FFF8E1" stroke="#5D4037" stroke-width="2"/>
-        <path d="M20 20 Q30 14 40 20 Q50 26 60 20" stroke="#B8860B" stroke-width="2" fill="none"/>
-        <path d="M20 32 Q30 26 40 32 Q50 38 60 32" stroke="#E53935" stroke-width="2" fill="none"/>
-        <path d="M20 44 Q30 38 40 44 Q50 50 60 44" stroke="#1565C0" stroke-width="2" fill="none"/>
-        <path d="M20 56 Q30 50 40 56 Q50 62 60 56" stroke="#2E7D32" stroke-width="2" fill="none"/>
-        <circle cx="40" cy="20" r="3" fill="#B8860B"/>
-        <circle cx="40" cy="32" r="3" fill="#E53935"/>
-        <circle cx="40" cy="44" r="3" fill="#1565C0"/>
-        <circle cx="40" cy="56" r="3" fill="#2E7D32"/>
-        <path d="M28 14 Q28 34 28 66" stroke="#B8860B" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
-        <path d="M52 14 Q52 34 52 66" stroke="#B8860B" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
-    </svg>`,
-    bedhaya: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <ellipse cx="40" cy="16" rx="8" ry="9" fill="#F5CBA7" stroke="#5D4037" stroke-width="2"/>
-        <path d="M32 25 Q24 28 20 40 Q18 52 22 60 L40 64 L58 60 Q62 52 60 40 Q56 28 48 25 Z" fill="#9C27B0" stroke="#5D4037" stroke-width="2"/>
-        <path d="M20 40 Q10 36 8 44 Q10 52 20 52" fill="#CE93D8" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M60 40 Q70 36 72 44 Q70 52 60 52" fill="#CE93D8" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M30 60 Q35 68 40 72 Q45 68 50 60" fill="#7B1FA2" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M34 8 Q40 4 46 8" stroke="#FFD700" stroke-width="2" fill="none"/>
-        <circle cx="40" cy="5" r="3" fill="#FFD700"/>
-    </svg>`,
-    serimpi: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <ellipse cx="40" cy="16" rx="7" ry="8" fill="#F5CBA7" stroke="#5D4037" stroke-width="2"/>
-        <path d="M33 24 Q22 30 18 44 Q16 56 20 64 L40 68 L60 64 Q64 56 62 44 Q58 30 47 24 Z" fill="#E91E63" stroke="#5D4037" stroke-width="2"/>
-        <path d="M18 44 Q6 38 4 48 Q6 58 18 56" fill="#F48FB1" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M62 44 Q74 38 76 48 Q74 58 62 56" fill="#F48FB1" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M32 64 Q36 72 40 76 Q44 72 48 64" fill="#C2185B" stroke="#5D4037" stroke-width="1.5"/>
-        <ellipse cx="40" cy="8" rx="6" ry="3" fill="#FFD700" stroke="#5D4037" stroke-width="1.5"/>
-    </svg>`,
-    keris: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <path d="M38 72 L38 32 Q36 28 38 24 Q40 20 42 24 L46 32 Q46 36 42 40 Q38 44 42 48 Q46 52 42 56 Q38 60 42 64 L42 72 Z" fill="#B0BEC5" stroke="#37474F" stroke-width="2"/>
-        <path d="M38 32 Q36 24 38 16 Q40 10 42 16 L44 24 Q42 28 40 32 Z" fill="#CFD8DC" stroke="#37474F" stroke-width="1.5"/>
-        <rect x="32" y="30" width="16" height="5" rx="2" fill="#8D6E63" stroke="#5D4037" stroke-width="1.5"/>
-        <rect x="34" y="62" width="12" height="12" rx="3" fill="#6D4C41" stroke="#5D4037" stroke-width="2"/>
-        <path d="M36 18 Q40 6 44 18" stroke="#90A4AE" stroke-width="1" fill="none"/>
-    </svg>`,
-    reog: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <ellipse cx="40" cy="46" rx="26" ry="20" fill="#F57F17" stroke="#5D4037" stroke-width="2"/>
-        <ellipse cx="40" cy="42" rx="18" ry="14" fill="#FF8F00" stroke="#5D4037" stroke-width="1.5"/>
-        <circle cx="32" cy="40" r="5" fill="#FFEE58" stroke="#5D4037" stroke-width="1.5"/>
-        <circle cx="48" cy="40" r="5" fill="#FFEE58" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M33 50 Q40 56 47 50" stroke="#5D4037" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M14 20 Q20 8 28 16 Q32 10 40 14 Q48 10 52 16 Q60 8 66 20 Q56 18 52 26 Q46 20 40 24 Q34 20 28 26 Q24 18 14 20Z" fill="#43A047" stroke="#2E7D32" stroke-width="1.5"/>
-        <path d="M22 24 Q18 12 26 10" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
-        <path d="M58 24 Q62 12 54 10" stroke="#1B5E20" stroke-width="1.5" fill="none"/>
-    </svg>`,
-    filosofi: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <path d="M16 68 L16 20 Q16 14 22 12 L58 12 Q64 12 64 18 L64 68 Z" fill="#FFF8E1" stroke="#5D4037" stroke-width="2"/>
-        <path d="M16 68 Q16 74 22 74 L64 74 L64 68 Z" fill="#E8D5B7" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M14 20 Q8 20 8 26 L8 72 Q8 76 14 76 L22 76 L22 14 Z" fill="#D4A574" stroke="#5D4037" stroke-width="2"/>
-        <line x1="26" y1="24" x2="58" y2="24" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
-        <line x1="26" y1="32" x2="58" y2="32" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
-        <line x1="26" y1="40" x2="50" y2="40" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
-        <line x1="26" y1="48" x2="54" y2="48" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
-        <line x1="26" y1="56" x2="48" y2="56" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
-    </svg>`,
-    tembang: `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-        <path d="M28 56 L28 20 L64 12 L64 48" stroke="#5D4037" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <circle cx="22" cy="58" r="8" fill="#8D6E63" stroke="#5D4037" stroke-width="2"/>
-        <circle cx="58" cy="50" r="8" fill="#8D6E63" stroke="#5D4037" stroke-width="2"/>
-        <ellipse cx="22" cy="58" rx="8" ry="5" fill="#A1887F" stroke="#5D4037" stroke-width="1.5"/>
-        <ellipse cx="58" cy="50" rx="8" ry="5" fill="#A1887F" stroke="#5D4037" stroke-width="1.5"/>
-        <path d="M44 18 Q50 14 56 16" stroke="#FFD700" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M36 22 Q42 18 48 20" stroke="#FFD700" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    </svg>`
+    wayang: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="wayangGold" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#5D4037" />
+                <stop offset="40%" stop-color="#D4AF37" />
+                <stop offset="80%" stop-color="#F3E5AB" />
+                <stop offset="100%" stop-color="#FFE082" />
+            </linearGradient>
+        </defs>
+        <line x1="50" y1="45" x2="50" y2="95" stroke="#3E2723" stroke-width="3" stroke-linecap="round"/>
+        <path d="M49 85 L51 85 L50 95 Z" fill="#5D4037" />
+        <path d="M50 8 C40 25 22 45 22 68 C22 75 32 78 50 78 C68 78 78 75 78 68 C78 45 60 25 50 8 Z" fill="url(#wayangGold)" stroke="#1A1510" stroke-width="2.5"/>
+        <path d="M50 78 L50 40" stroke="#1A1510" stroke-width="2" stroke-linecap="round"/>
+        <path d="M50 50 Q35 40 32 45 Q40 55 50 58" fill="none" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M50 45 Q65 35 68 40 Q60 50 50 53" fill="none" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M50 35 Q30 25 28 32 Q42 42 50 40" fill="none" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M50 30 Q70 20 72 27 Q58 37 50 35" fill="none" stroke="#1A1510" stroke-width="1.5"/>
+        <rect x="38" y="60" width="24" height="18" fill="#5D4037" stroke="#1A1510" stroke-width="1.5" rx="1"/>
+        <path d="M38 60 L50 48 L62 60 Z" fill="#D4AF37" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M45 68 L45 78 M55 68 L55 78" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M50 64 A5 5 0 0 0 45 69 L55 69 A5 5 0 0 0 50 64 Z" fill="#FFE082" stroke="#1A1510" stroke-width="1"/>
+        <path d="M30 65 C26 58 24 60 22 68 C24 67 28 66 30 65 Z" fill="#5D4037" stroke="#1A1510" stroke-width="1"/>
+        <path d="M70 65 C74 58 76 60 78 68 C76 67 72 66 70 65 Z" fill="#5D4037" stroke="#1A1510" stroke-width="1"/>
+      </svg>`,
+    batik: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="batikGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F3E5AB" />
+                <stop offset="50%" stop-color="#D4AF37" />
+                <stop offset="100%" stop-color="#8D6E63" />
+            </linearGradient>
+            <linearGradient id="batikIndigo" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#1A237E" />
+                <stop offset="100%" stop-color="#0D1B2A" />
+            </linearGradient>
+        </defs>
+        <rect x="8" y="8" width="84" height="84" rx="4" fill="url(#batikIndigo)" stroke="#1A1510" stroke-width="3"/>
+        <g stroke="url(#batikGold)" stroke-width="1.5" fill="none">
+            <path d="M50 50 C40 32 60 32 50 50 Z" fill="url(#batikGold)" fill-opacity="0.25" stroke-width="2"/>
+            <path d="M50 50 C40 68 60 68 50 50 Z" fill="url(#batikGold)" fill-opacity="0.25" stroke-width="2"/>
+            <path d="M50 50 C32 40 32 60 50 50 Z" fill="url(#batikGold)" fill-opacity="0.25" stroke-width="2"/>
+            <path d="M50 50 C68 40 68 60 50 50 Z" fill="url(#batikGold)" fill-opacity="0.25" stroke-width="2"/>
+            <circle cx="50" cy="38" r="1.5" fill="url(#batikGold)"/>
+            <circle cx="50" cy="62" r="1.5" fill="url(#batikGold)"/>
+            <circle cx="38" cy="50" r="1.5" fill="url(#batikGold)"/>
+            <circle cx="62" cy="50" r="1.5" fill="url(#batikGold)"/>
+            <path d="M22 22 C14 8 30 8 22 22 Z" fill-opacity="0.1"/>
+            <path d="M22 22 C14 36 30 36 22 22 Z" fill-opacity="0.1"/>
+            <path d="M22 22 C8 14 8 30 22 22 Z" fill-opacity="0.1"/>
+            <path d="M22 22 C36 14 36 30 22 22 Z" fill-opacity="0.1"/>
+            <path d="M78 22 C70 8 86 8 78 22 Z" fill-opacity="0.1"/>
+            <path d="M78 22 C70 36 86 36 78 22 Z" fill-opacity="0.1"/>
+            <path d="M78 22 C64 14 64 30 78 22 Z" fill-opacity="0.1"/>
+            <path d="M78 22 C92 14 92 30 78 22 Z" fill-opacity="0.1"/>
+            <path d="M22 78 C14 64 30 64 22 78 Z" fill-opacity="0.1"/>
+            <path d="M22 78 C14 92 30 92 22 78 Z" fill-opacity="0.1"/>
+            <path d="M22 78 C8 70 8 86 22 78 Z" fill-opacity="0.1"/>
+            <path d="M22 78 C36 70 36 86 22 78 Z" fill-opacity="0.1"/>
+            <path d="M78 78 C70 64 86 64 78 78 Z" fill-opacity="0.1"/>
+            <path d="M78 78 C70 92 86 92 78 78 Z" fill-opacity="0.1"/>
+            <path d="M78 78 C64 70 64 86 78 78 Z" fill-opacity="0.1"/>
+            <path d="M78 78 C92 70 92 86 78 78 Z" fill-opacity="0.1"/>
+            <line x1="15" y1="50" x2="85" y2="50" stroke-dasharray="2,3" stroke-width="1"/>
+            <line x1="50" y1="15" x2="50" y2="85" stroke-dasharray="2,3" stroke-width="1"/>
+        </g>
+        <circle cx="50" cy="50" r="3" fill="#D32F2F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="22" cy="22" r="2" fill="#D32F2F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="78" cy="22" r="2" fill="#D32F2F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="22" cy="78" r="2" fill="#D32F2F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="78" cy="78" r="2" fill="#D32F2F" stroke="#1A1510" stroke-width="1"/>
+      </svg>`,
+    bedhaya: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="danceGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE082" />
+                <stop offset="50%" stop-color="#FFD54F" />
+                <stop offset="100%" stop-color="#B8860B" />
+            </linearGradient>
+            <linearGradient id="shawlPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#8E24AA" />
+                <stop offset="50%" stop-color="#D81B60" />
+                <stop offset="100%" stop-color="#4A148C" />
+            </linearGradient>
+        </defs>
+        <circle cx="50" cy="20" r="6" fill="#F5CBA7" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M47 14 Q53 11 55 17 Q58 20 54 23 Z" fill="#1A1510"/>
+        <path d="M45 17 Q50 12 55 17" stroke="url(#danceGold)" stroke-width="2" fill="none"/>
+        <circle cx="50" cy="12" r="1.5" fill="#D32F2F"/>
+        <path d="M46 26 L54 26 L56 42 L44 42 Z" fill="#FFB300" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M44 26 Q50 28 56 26" fill="none" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M47 20 L47 26 M53 20 L53 26" stroke="#1A1510" stroke-width="1"/>
+        <path d="M44 28 C35 30 30 38 22 36 C20 35 21 33 24 33 C32 34 38 27 44 26" fill="none" stroke="#1A1510" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M56 28 C65 30 70 38 78 36 C80 35 79 33 76 33 C68 34 62 27 56 26" fill="none" stroke="#1A1510" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="43" cy="21" r="1" fill="#FFD54F" stroke="#1A1510" stroke-width="0.5"/>
+        <circle cx="57" cy="21" r="1" fill="#FFD54F" stroke="#1A1510" stroke-width="0.5"/>
+        <path d="M36 32 Q25 40 28 55 Q30 68 45 70" fill="none" stroke="url(#shawlPurple)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M64 32 Q75 40 72 55 Q70 68 55 70" fill="none" stroke="url(#shawlPurple)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M44 42 Q32 60 30 85 L70 85 Q68 60 56 42 Z" fill="url(#danceGold)" stroke="#1A1510" stroke-width="2"/>
+        <path d="M30 85 C30 88 70 88 70 85 Z" fill="#B8860B" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M46 44 L36 82" stroke="#5D4037" stroke-width="1" stroke-dasharray="2,3"/>
+        <path d="M50 44 L44 82" stroke="#5D4037" stroke-width="1" stroke-dasharray="2,3"/>
+        <path d="M54 44 L52 82" stroke="#5D4037" stroke-width="1" stroke-dasharray="2,3"/>
+      </svg>`,
+    serimpi: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="danceGold2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF59D" />
+                <stop offset="50%" stop-color="#FFD54F" />
+                <stop offset="100%" stop-color="#B8860B" />
+            </linearGradient>
+            <linearGradient id="shawlRed" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#E91E63" />
+                <stop offset="50%" stop-color="#FF4081" />
+                <stop offset="100%" stop-color="#C2185B" />
+            </linearGradient>
+        </defs>
+        <circle cx="50" cy="20" r="6" fill="#F5CBA7" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M47 14 Q53 11 55 17 Q58 20 54 23 Z" fill="#1A1510"/>
+        <path d="M45 17 Q50 12 55 17" stroke="url(#danceGold2)" stroke-width="2" fill="none"/>
+        <circle cx="50" cy="12" r="1.5" fill="#FF4081"/>
+        <path d="M46 26 L54 26 L56 42 L44 42 Z" fill="#E91E63" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M44 26 Q50 28 56 26" fill="none" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M44 27 C38 32 36 44 32 46 C30 47 30 45 32 43 C35 41 38 32 44 27" fill="none" stroke="#1A1510" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M56 27 C64 30 68 35 74 44 C75 45 74 47 72 45 C67 38 62 32 56 27" fill="none" stroke="#1A1510" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="43" cy="21" r="1" fill="#FFD54F" stroke="#1A1510" stroke-width="0.5"/>
+        <circle cx="57" cy="21" r="1" fill="#FFD54F" stroke="#1A1510" stroke-width="0.5"/>
+        <path d="M38 32 Q25 45 30 65 Q33 72 48 70" fill="none" stroke="url(#shawlRed)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M62 32 Q75 45 70 65 Q67 72 52 70" fill="none" stroke="url(#shawlRed)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M44 42 Q32 60 30 85 L70 85 Q68 60 56 42 Z" fill="url(#danceGold2)" stroke="#1A1510" stroke-width="2"/>
+        <path d="M30 85 C30 88 70 88 70 85 Z" fill="#B8860B" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M46 44 L36 82" stroke="#5D4037" stroke-width="1" stroke-dasharray="2,3"/>
+        <path d="M50 44 L44 82" stroke="#5D4037" stroke-width="1" stroke-dasharray="2,3"/>
+        <path d="M54 44 L52 82" stroke="#5D4037" stroke-width="1" stroke-dasharray="2,3"/>
+      </svg>`,
+    keris: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="kerisIron" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ECEFF1" />
+                <stop offset="50%" stop-color="#90A4AE" />
+                <stop offset="100%" stop-color="#37474F" />
+            </linearGradient>
+            <linearGradient id="kerisGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE082" />
+                <stop offset="50%" stop-color="#FFB300" />
+                <stop offset="100%" stop-color="#8D6E63" />
+            </linearGradient>
+            <linearGradient id="kerisWood" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#8D6E63" />
+                <stop offset="100%" stop-color="#3E2723" />
+            </linearGradient>
+        </defs>
+        <path d="M60 45 L50 90 L40 90 L45 45 Z" fill="url(#kerisWood)" stroke="#1A1510" stroke-width="2"/>
+        <path d="M35 45 C35 38 65 38 65 45 Z" fill="url(#kerisGold)" stroke="#1A1510" stroke-width="2"/>
+        <g transform="translate(10, -5)">
+            <path d="M40 70 Q36 62 40 54 Q44 46 40 38 Q36 30 40 22 Q44 14 40 8 L43 8 Q48 14 44 22 Q40 30 44 38 Q48 46 44 54 Q40 62 45 70 Z" fill="url(#kerisIron)" stroke="#1A1510" stroke-width="1.8"/>
+            <path d="M41 68 Q38 62 41 54 Q44 46 41 38 Q38 30 41 22 Q44 14 41 9" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.8"/>
+            <path d="M42 66 Q39 62 42 54 Q45 46 42 38 Q39 30 42 22" fill="none" stroke="#CFD8DC" stroke-width="0.5" opacity="0.6"/>
+            <path d="M32 70 C32 68 53 68 53 70 C53 72 32 72 32 70 Z" fill="url(#kerisGold)" stroke="#1A1510" stroke-width="1.8"/>
+            <path d="M40 72 Q37 77 42 84 Q45 88 40 92 L35 90 Q38 84 35 77 Z" fill="url(#kerisWood)" stroke="#1A1510" stroke-width="1.8"/>
+            <ellipse cx="38" cy="73" rx="3.5" ry="1.5" fill="url(#kerisGold)" stroke="#1A1510" stroke-width="1"/>
+        </g>
+      </svg>`,
+    reog: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="reogRed" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#E74C3C" />
+                <stop offset="100%" stop-color="#C0392B" />
+            </linearGradient>
+            <linearGradient id="reogYellow" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#F1C40F" />
+                <stop offset="100%" stop-color="#D35400" />
+            </linearGradient>
+            <radialGradient id="peacockEye" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#00E5FF" />
+                <stop offset="40%" stop-color="#006064" />
+                <stop offset="70%" stop-color="#81C784" />
+                <stop offset="100%" stop-color="#1B5E20" />
+            </radialGradient>
+        </defs>
+        <path d="M50 75 Q15 65 15 35 Q15 10 50 15 Q85 10 85 35 Q85 65 50 75 Z" fill="#2E7D32" stroke="#1A1510" stroke-width="2.5"/>
+        <path d="M50 75 Q25 68 25 40 Q25 18 50 22 Q75 18 75 40 Q75 68 50 75 Z" fill="#1B5E20" stroke="#1A1510" stroke-width="1.5"/>
+        <circle cx="30" cy="25" r="4.5" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="50" cy="20" r="4.5" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="70" cy="25" r="4.5" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="22" cy="40" r="4.5" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="78" cy="40" r="4.5" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="35" cy="52" r="4" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="65" cy="52" r="4" fill="url(#peacockEye)" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="50" cy="65" r="16" fill="url(#reogRed)" stroke="#1A1510" stroke-width="2.5"/>
+        <circle cx="50" cy="65" r="11" fill="url(#reogYellow)" stroke="#1A1510" stroke-width="2"/>
+        <polygon points="41 56 34 50 43 50" fill="url(#reogRed)" stroke="#1A1510" stroke-width="1.5"/>
+        <polygon points="59 56 66 50 57 50" fill="url(#reogRed)" stroke="#1A1510" stroke-width="1.5"/>
+        <circle cx="46" cy="62" r="2.5" fill="#FFFFFF" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="46" cy="62" r="1.2" fill="#000000"/>
+        <circle cx="54" cy="62" r="2.5" fill="#FFFFFF" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="54" cy="62" r="1.2" fill="#000000"/>
+        <path d="M48 66 L52 66 L50 70 Z" fill="#000" stroke="#1A1510" stroke-width="1"/>
+        <path d="M44 71 Q50 75 56 71 Z" fill="#FFFFFF" stroke="#1A1510" stroke-width="1.5"/>
+        <path d="M43 71 L45 74 L47 71 L49 74 L51 71 M53 71 L55 74 L57 71" stroke="#1A1510" stroke-width="1"/>
+      </svg>`,
+    filosofi: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="lontarBg" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FCE4D6" />
+                <stop offset="50%" stop-color="#E8D5B7" />
+                <stop offset="100%" stop-color="#D4A373" />
+            </linearGradient>
+            <linearGradient id="scrollWood" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#5D4037" />
+                <stop offset="50%" stop-color="#8D6E63" />
+                <stop offset="100%" stop-color="#3E2723" />
+            </linearGradient>
+        </defs>
+        <path d="M12 28 C25 24 35 24 50 28 C65 24 75 24 88 28 L88 78 C75 74 65 74 50 78 C35 74 25 74 12 78 Z" fill="url(#lontarBg)" stroke="#1A1510" stroke-width="2.5"/>
+        <line x1="50" y1="28" x2="50" y2="78" stroke="#8D6E63" stroke-width="1.8" stroke-dasharray="3,3"/>
+        <rect x="7" y="24" width="6" height="58" rx="2" fill="url(#scrollWood)" stroke="#1A1510" stroke-width="2"/>
+        <rect x="87" y="24" width="6" height="58" rx="2" fill="url(#scrollWood)" stroke="#1A1510" stroke-width="2"/>
+        <circle cx="10" cy="24" r="2.5" fill="#FFD54F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="10" cy="82" r="2.5" fill="#FFD54F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="90" cy="24" r="2.5" fill="#FFD54F" stroke="#1A1510" stroke-width="1"/>
+        <circle cx="90" cy="82" r="2.5" fill="#FFD54F" stroke="#1A1510" stroke-width="1"/>
+        <path d="M18 36 Q22 34 26 36 T34 36 T42 36" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M18 46 Q22 44 26 46 T34 46 T42 46" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M18 56 Q22 54 26 56 T34 56 T42 56" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M18 66 Q22 64 26 66 T34 66 T42 66" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M58 36 Q62 34 66 36 T74 36 T82 36" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M58 46 Q62 44 66 46 T74 46 T82 46" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M58 56 Q62 54 66 56 T74 56 T82 56" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M58 66 Q62 64 66 66 T74 66 T82 66" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <rect x="18" y="32" width="6" height="6" fill="#D32F2F" rx="1" opacity="0.8"/>
+      </svg>`,
+    tembang: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+        <defs>
+            <linearGradient id="tembangBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF9C4" />
+                <stop offset="100%" stop-color="#FBC02D" />
+            </linearGradient>
+        </defs>
+        <rect x="12" y="10" width="76" height="80" rx="3" fill="url(#tembangBg)" stroke="#1A1510" stroke-width="2.5"/>
+        <line x1="20" y1="18" x2="80" y2="18" stroke="#F57F17" stroke-width="1.5"/>
+        <g stroke="#8D6E63" stroke-width="1">
+            <line x1="20" y1="32" x2="80" y2="32"/>
+            <line x1="20" y1="37" x2="80" y2="37"/>
+            <line x1="20" y1="42" x2="80" y2="42"/>
+            <line x1="20" y1="47" x2="80" y2="47"/>
+            <line x1="20" y1="52" x2="80" y2="52"/>
+        </g>
+        <path d="M24 55 Q28 30 25 28 Q22 26 23 35 Q24 45 28 42 T24 55" fill="none" stroke="#1A1510" stroke-width="2"/>
+        <circle cx="38" cy="47" r="3.5" fill="#1A1510"/>
+        <line x1="41" y1="47" x2="41" y2="32" stroke="#1A1510" stroke-width="1.8"/>
+        <circle cx="50" cy="42" r="3.5" fill="#1A1510"/>
+        <line x1="53" y1="42" x2="53" y2="28" stroke="#1A1510" stroke-width="1.8"/>
+        <circle cx="62" cy="37" r="3.5" fill="#1A1510"/>
+        <line x1="65" cy="37" x2="65" y2="23" stroke="#1A1510" stroke-width="1.8"/>
+        <path d="M65 23 Q72 26 70 30" fill="none" stroke="#1A1510" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M20 72 Q24 70 28 72 T36 72 T44 72 T52 72 T60 72 T68 72 T76 72" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M20 80 Q24 78 28 80 T36 80 T44 80 T52 80 T60 80 T68 80" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+      </svg>`
 };
 
 const BUDAYA_DATA = [
